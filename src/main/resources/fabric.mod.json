@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "env_driven_assets",
+	"version": "${version}",
+	"name": "Environment Driven Assets",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"FirstMegaGame4"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/env_driven_assets/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"fr.firstmegagame4.env.driven.assets.EnvironmentDrivenAssetsCommon"
+		],
+		"client": [
+			"fr.firstmegagame4.env.driven.assets.EnvironmentDrivenAssets"
+		]
+	},
+	"mixins": [
+		"env_driven_assets.mixins.json",
+		{
+			"config": "env_driven_assets.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.3",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
