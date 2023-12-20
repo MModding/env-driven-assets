@@ -1,24 +1,32 @@
-package fr.firstmegagame4.env.driven.assets.mixin.client;
+package fr.firstmegagame4.env.driven.assets.impl.env.json;
 
 import fr.firstmegagame4.env.json.api.EnvJsonVisitor;
 import fr.firstmegagame4.env.json.api.rule.SkyEnvJsonRule;
 import fr.firstmegagame4.env.json.api.rule.VoidEnvJsonRule;
 import fr.firstmegagame4.env.json.api.rule.WaterEnvJsonRule;
 import it.unimi.dsi.fastutil.ints.Int2BooleanFunction;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import org.jetbrains.annotations.ApiStatus;
 
-import java.util.Optional;
+@ApiStatus.Internal
+public class BlockEnvJsonVisitor implements EnvJsonVisitor {
 
-public class ClientPlayerVisitor implements EnvJsonVisitor {
+	private final World world;
+	private final BlockPos pos;
+
+	public BlockEnvJsonVisitor(World world, BlockPos pos) {
+		this.world = world;
+		this.pos = pos;
+	}
 
 	@Override
 	public boolean applyDimensionKey(RegistryKey<World> dimensionKey) {
-		return this.player().isPresent() && this.player().get().clientWorld.getRegistryKey() == dimensionKey;
+		return this.world.getRegistryKey() == dimensionKey;
 	}
 
 	@Override
@@ -28,59 +36,55 @@ public class ClientPlayerVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applyBiomeKey(RegistryKey<Biome> biomeKey) {
-		return this.player().isPresent() && this.player().get().clientWorld.getBiome(this.player().get().getBlockPos()) == biomeKey;
+		return this.world.getBiome(this.pos).matchesKey(biomeKey);
 	}
 
 	@Override
 	public boolean applyBiomeTag(TagKey<Biome> biomeTag) {
-		return this.player().isPresent() && this.player().get().clientWorld.getBiome(this.player().get().getBlockPos()).isIn(biomeTag);
+		return this.world.getBiome(this.pos).isIn(biomeTag);
 	}
 
 	@Override
 	public boolean applyXCoord(Int2BooleanFunction operation) {
-		return this.player().isPresent() && operation.get(this.player().get().getBlockX());
+		return operation.get(this.pos.getX());
 	}
 
 	@Override
 	public boolean applyYCoord(Int2BooleanFunction operation) {
-		return this.player().isPresent() && operation.get(this.player().get().getBlockY());
+		return operation.get(this.pos.getY());
 	}
 
 	@Override
 	public boolean applyZCoord(Int2BooleanFunction operation) {
-		return this.player().isPresent() && operation.get(this.player().get().getBlockZ());
+		return operation.get(this.pos.getZ());
 	}
 
 	@Override
 	public boolean applySubmerged(boolean submerged) {
-		return false;
+		return submerged && this.world.getBlockState(this.pos.up()).getFluidState().isIn(FluidTags.WATER);
 	}
 
 	@Override
 	public boolean applySky(SkyEnvJsonRule.Localization localization) {
-		return false;
+		return switch (localization) {
+			case BELOW -> this.pos.getY() <= this.world.getTopY();
+			case ABOVE -> this.pos.getY() > this.world.getTopY();
+		};
 	}
 
 	@Override
 	public boolean applyWater(WaterEnvJsonRule.Localization localization) {
-		return false;
+		return switch (localization) {
+			case BELOW -> this.pos.getY() <= this.world.getSeaLevel();
+			case ABOVE -> this.pos.getY() > this.world.getSeaLevel();
+		};
 	}
 
 	@Override
 	public boolean applyVoid(VoidEnvJsonRule.Localization localization) {
-		return false;
-	}
-
-	private Optional<MinecraftClient> client() {
-		return Optional.ofNullable(MinecraftClient.getInstance());
-	}
-
-	private Optional<ClientPlayerEntity> player() {
-		if (this.client().isPresent()) {
-			return Optional.ofNullable(this.client().get().player);
-		}
-		else {
-			return Optional.empty();
-		}
+		return switch (localization) {
+			case BELOW -> this.pos.getY() <= this.world.getBottomY();
+			case ABOVE -> this.pos.getY() > this.world.getBottomY();
+		};
 	}
 }

@@ -8,15 +8,15 @@
 		"FirstMegaGame4"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/env-driven-assets",
+		"sources": "https://github.com/FirstMegaGame4/env-driven-assets"
 	},
-	"license": "CC0-1.0",
+	"license": "LGPL-3.0",
 	"icon": "assets/env_driven_assets/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"main": [
-			"fr.firstmegagame4.env.driven.assets.EnvironmentDrivenAssetsCommon"
+			"fr.firstmegagame4.env.driven.assets.EDACommons"
 		],
 		"client": [
 			"fr.firstmegagame4.env.driven.assets.EnvironmentDrivenAssets"
