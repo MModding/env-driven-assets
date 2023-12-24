@@ -19,9 +19,10 @@
 			"fr.firstmegagame4.env.driven.assets.EDACommons"
 		],
 		"client": [
-			"fr.firstmegagame4.env.driven.assets.EnvironmentDrivenAssets"
+          "fr.firstmegagame4.env.driven.assets.client.EnvironmentDrivenAssets"
 		]
 	},
+	"accessWidener": "env_driven_assets.accesswidener",
 	"mixins": [
 		"env_driven_assets.mixins.json",
 		{

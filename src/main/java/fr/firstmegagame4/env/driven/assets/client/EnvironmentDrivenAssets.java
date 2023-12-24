@@ -1,4 +1,4 @@
-package fr.firstmegagame4.env.driven.assets;
+package fr.firstmegagame4.env.driven.assets.client;
 
 import net.fabricmc.api.ClientModInitializer;
 

@@ -1,11 +1,17 @@
 {
-	"required": true,
-	"package": "fr.firstmegagame4.env.driven.assets.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"ExampleMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "fr.firstmegagame4.env.driven.assets.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [],
+  "client": [
+    "client.BakedModelManagerMixin",
+    "client.BakedModelMixin",
+    "client.BlockModelRendererMixin",
+    "client.BlockRenderManagerMixin",
+    "client.JsonUnbakedModelMixin",
+    "client.ModelLoaderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

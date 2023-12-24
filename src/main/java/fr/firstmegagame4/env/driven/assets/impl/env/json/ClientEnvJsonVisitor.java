@@ -1,5 +1,6 @@
 package fr.firstmegagame4.env.driven.assets.impl.env.json;
 
+import fr.firstmegagame4.env.driven.assets.EDACommons;
 import fr.firstmegagame4.env.json.api.EnvJsonVisitor;
 import fr.firstmegagame4.env.json.api.rule.SkyEnvJsonRule;
 import fr.firstmegagame4.env.json.api.rule.VoidEnvJsonRule;
@@ -7,6 +8,7 @@ import fr.firstmegagame4.env.json.api.rule.WaterEnvJsonRule;
 import it.unimi.dsi.fastutil.ints.Int2BooleanFunction;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
@@ -32,7 +34,13 @@ public class ClientEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applyDimensionTag(TagKey<World> dimensionTag) {
-		return false;
+		if (this.player().isPresent()) {
+			ClientWorld world = this.player().get().clientWorld;
+			return EDACommons.worldIsIn(world, dimensionTag);
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override

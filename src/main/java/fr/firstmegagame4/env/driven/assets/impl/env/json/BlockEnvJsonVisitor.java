@@ -1,5 +1,6 @@
 package fr.firstmegagame4.env.driven.assets.impl.env.json;
 
+import fr.firstmegagame4.env.driven.assets.EDACommons;
 import fr.firstmegagame4.env.json.api.EnvJsonVisitor;
 import fr.firstmegagame4.env.json.api.rule.SkyEnvJsonRule;
 import fr.firstmegagame4.env.json.api.rule.VoidEnvJsonRule;
@@ -31,7 +32,7 @@ public class BlockEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applyDimensionTag(TagKey<World> dimensionTag) {
-		return false;
+		return EDACommons.worldIsIn(this.world, dimensionTag);
 	}
 
 	@Override
