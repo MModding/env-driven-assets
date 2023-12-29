@@ -27,9 +27,15 @@
 		"fabricloader": ">=0.15.3",
 		"minecraft": "~1.20.4",
 		"java": ">=17",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"env_json": ">=0.1.0-"
 	},
 	"suggests": {
 		"another-mod": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"parent": "env_json"
+		}
 	}
 }

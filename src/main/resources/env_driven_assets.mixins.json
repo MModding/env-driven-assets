@@ -2,7 +2,10 @@
   "required": true,
   "package": "fr.firstmegagame4.env.driven.assets.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "plugin": "fr.firstmegagame4.env.driven.assets.plugin.mixin.client.EDAMixinPlugin",
+  "mixins": [
+    "client.WorldSliceAccessor"
+  ],
   "client": [
     "client.BakedModelCacheKeyAccessor",
     "client.BakedModelManagerMixin",
@@ -21,5 +24,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }
