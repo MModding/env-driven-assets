@@ -15,20 +15,13 @@
 	"icon": "assets/env_driven_assets/icon.png",
 	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"fr.firstmegagame4.env.driven.assets.EDACommons"
-		],
 		"client": [
           "fr.firstmegagame4.env.driven.assets.client.EnvironmentDrivenAssets"
 		]
 	},
 	"accessWidener": "env_driven_assets.accesswidener",
 	"mixins": [
-		"env_driven_assets.mixins.json",
-		{
-			"config": "env_driven_assets.client.mixins.json",
-			"environment": "client"
-		}
+		"env_driven_assets.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.3",

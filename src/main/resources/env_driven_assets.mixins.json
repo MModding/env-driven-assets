@@ -4,12 +4,20 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
+    "client.BakedModelCacheKeyAccessor",
     "client.BakedModelManagerMixin",
-    "client.BakedModelMixin",
+    "client.BasicBakedModelMixin",
+    "client.BlockDustParticleMixin",
     "client.BlockModelRendererMixin",
-    "client.BlockRenderManagerMixin",
+    "client.BuiltinBakedModelMixin",
+    "client.ChunkRendererRegionAccessor",
+    "client.ForwardingBakedModelMixin",
     "client.JsonUnbakedModelMixin",
-    "client.ModelLoaderMixin"
+    "client.ModelLoaderAccessor",
+    "client.ModelLoaderMixin",
+    "client.MultipartBakedModelMixin",
+    "client.SpriteBillboardParticleAccessor",
+    "client.WeightedBakedModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

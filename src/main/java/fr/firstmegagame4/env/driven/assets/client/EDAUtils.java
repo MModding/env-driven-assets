@@ -1,6 +1,4 @@
-package fr.firstmegagame4.env.driven.assets;
-
-import net.fabricmc.api.ModInitializer;
+package fr.firstmegagame4.env.driven.assets.client;
 
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registry;
@@ -12,27 +10,24 @@ import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EDACommons implements ModInitializer {
+import java.util.Map;
+import java.util.function.Supplier;
 
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
+public class EDAUtils {
+
     public static final Logger LOGGER = LoggerFactory.getLogger("env_driven_assets");
 
 	public static boolean worldIsIn(World entry, TagKey<World> tag) {
-		return EDACommons.isIn(entry.getRegistryManager(), RegistryKeys.WORLD, tag, entry.getRegistryManager().get(RegistryKeys.WORLD).getEntry(entry));
+		return EDAUtils.isIn(entry.getRegistryManager(), RegistryKeys.WORLD, tag, entry.getRegistryManager().get(RegistryKeys.WORLD).getEntry(entry));
 	}
 
 	public static <T> boolean isIn(DynamicRegistryManager manager, RegistryKey<? extends Registry<T>> registry, TagKey<T> tag, RegistryEntry<T> entry) {
 		return manager.get(registry).getEntryList(tag).orElseThrow().contains(entry);
 	}
 
-	@Override
-	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-
-		LOGGER.info("Hello Fabric world!");
+	public static <K, V> Map<V, K> reverseMap(Map<K, V> original, Supplier<Map<V, K>> creator) {
+		Map<V, K> reversed = creator.get();
+		original.forEach((key, value) -> reversed.put(value, key));
+		return reversed;
 	}
 }

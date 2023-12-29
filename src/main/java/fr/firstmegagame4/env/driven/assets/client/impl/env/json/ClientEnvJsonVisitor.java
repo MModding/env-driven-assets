@@ -1,6 +1,7 @@
-package fr.firstmegagame4.env.driven.assets.impl.env.json;
+package fr.firstmegagame4.env.driven.assets.client.impl.env.json;
 
-import fr.firstmegagame4.env.driven.assets.EDACommons;
+import fr.firstmegagame4.env.driven.assets.client.EDAUtils;
+import fr.firstmegagame4.env.driven.assets.client.EDAEnvJsonVisitors;
 import fr.firstmegagame4.env.json.api.EnvJsonVisitor;
 import fr.firstmegagame4.env.json.api.rule.SkyEnvJsonRule;
 import fr.firstmegagame4.env.json.api.rule.VoidEnvJsonRule;
@@ -18,6 +19,9 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Optional;
 
+/**
+ * @see EDAEnvJsonVisitors
+ */
 @ApiStatus.Internal
 public class ClientEnvJsonVisitor implements EnvJsonVisitor {
 
@@ -36,7 +40,7 @@ public class ClientEnvJsonVisitor implements EnvJsonVisitor {
 	public boolean applyDimensionTag(TagKey<World> dimensionTag) {
 		if (this.player().isPresent()) {
 			ClientWorld world = this.player().get().clientWorld;
-			return EDACommons.worldIsIn(world, dimensionTag);
+			return EDAUtils.worldIsIn(world, dimensionTag);
 		}
 		else {
 			return false;

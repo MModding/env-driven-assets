@@ -1,11 +1,14 @@
 package fr.firstmegagame4.env.driven.assets.client;
 
+import fr.firstmegagame4.env.driven.assets.client.model.plugin.EDAModelLoadingPlugin;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 
 public class EnvironmentDrivenAssets implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
+		EDAUtils.LOGGER.info("Loading Environment Driven Assets");
+		ModelLoadingPlugin.register(new EDAModelLoadingPlugin());
 	}
 }

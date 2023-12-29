@@ -1,8 +1,8 @@
-package fr.firstmegagame4.env.driven.assets.duck;
+package fr.firstmegagame4.env.driven.assets.client.duck;
 
 import fr.firstmegagame4.env.json.api.EnvJson;
 
-public interface JsonUnbakedModelDuckInterface {
+public interface BakedModelDuckInterface {
 
 	EnvJson env_driven_assets$getEnvJson();
 

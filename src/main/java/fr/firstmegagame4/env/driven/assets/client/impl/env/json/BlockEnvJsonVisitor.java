@@ -1,6 +1,7 @@
-package fr.firstmegagame4.env.driven.assets.impl.env.json;
+package fr.firstmegagame4.env.driven.assets.client.impl.env.json;
 
-import fr.firstmegagame4.env.driven.assets.EDACommons;
+import fr.firstmegagame4.env.driven.assets.client.EDAUtils;
+import fr.firstmegagame4.env.driven.assets.client.EDAEnvJsonVisitors;
 import fr.firstmegagame4.env.json.api.EnvJsonVisitor;
 import fr.firstmegagame4.env.json.api.rule.SkyEnvJsonRule;
 import fr.firstmegagame4.env.json.api.rule.VoidEnvJsonRule;
@@ -14,6 +15,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * @see EDAEnvJsonVisitors
+ */
 @ApiStatus.Internal
 public class BlockEnvJsonVisitor implements EnvJsonVisitor {
 
@@ -32,7 +36,7 @@ public class BlockEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applyDimensionTag(TagKey<World> dimensionTag) {
-		return EDACommons.worldIsIn(this.world, dimensionTag);
+		return EDAUtils.worldIsIn(this.world, dimensionTag);
 	}
 
 	@Override
