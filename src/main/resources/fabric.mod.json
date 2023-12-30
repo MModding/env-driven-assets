@@ -31,9 +31,12 @@
 		"env_json": ">=0.1.0-"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"env-driven-data": "*"
 	},
 	"custom": {
+		"loom:injected_interfaces": {
+			"net/minecraft/class_1087": [ "fr/firstmegagame4/env/driven/assets/client/injected/BakedModelRedirection" ]
+		},
 		"modmenu": {
 			"parent": "env_json"
 		}

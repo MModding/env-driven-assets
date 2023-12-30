@@ -20,13 +20,21 @@ import java.util.function.Supplier;
 
 public class EDABakedModel extends ForwardingBakedModel {
 
-	private final ModelLoader loader;
 	private final ModelManager manager;
 
 	public EDABakedModel(ModelLoader loader, BakedModel wrapped) {
-		this.loader = loader;
 		this.manager = ((ModelLoaderDuckInterface) loader).env_driven_assets$getModelManager();
 		this.wrapped = wrapped;
+	}
+
+	@Override
+	public boolean shouldAllowBlockRedirection(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context, boolean isAlreadyRedirected) {
+		return !isAlreadyRedirected;
+	}
+
+	@Override
+	public boolean shouldAllowItemRedirection(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context, boolean isAlreadyRedirected) {
+		return !isAlreadyRedirected;
 	}
 
 	@Override
@@ -34,7 +42,7 @@ public class EDABakedModel extends ForwardingBakedModel {
 		if (this.getEnvJson() != null) {
 			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.blockVisitor(blockView, pos));
 			if (identifier != null) {
-				this.manager.convert(this.loader, identifier).emitBlockQuads(blockView, state, pos, randomSupplier, context);
+				this.manager.convert(identifier).emitBlockQuads(blockView, state, pos, randomSupplier, context, true);
 				return;
 			}
 		}
@@ -46,7 +54,7 @@ public class EDABakedModel extends ForwardingBakedModel {
 		if (this.getEnvJson() != null) {
 			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.clientVisitor(MinecraftClient.getInstance()));
 			if (identifier != null) {
-				this.manager.convert(this.loader, identifier).emitItemQuads(stack, randomSupplier, context);
+				this.manager.convert(identifier).emitItemQuads(stack, randomSupplier, context, true);
 				return;
 			}
 		}

@@ -47,12 +47,12 @@ public class BakedModelManagerMixin implements BakedModelManagerDuckInterface {
 	@Inject(method = "upload", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;getBakedModelMap()Ljava/util/Map;"))
 	private void hookModelLoader(BakedModelManager.BakingResult bakingResult, Profiler profiler, CallbackInfo ci) {
 		this.modelLoader = bakingResult.modelLoader();
-		((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().reloadRevertor(this.modelLoader);
+		((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().reloadRevertor();
 	}
 
 	@Override
 	public BakedModel env_driven_assets$convert(Identifier reference) {
-		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().convert(this.modelLoader, reference);
+		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().convert(reference);
 	}
 
 	@Override

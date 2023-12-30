@@ -1,7 +1,6 @@
 package fr.firstmegagame4.env.driven.assets.client.model;
 
 import fr.firstmegagame4.env.driven.assets.client.EDAUtils;
-import fr.firstmegagame4.env.driven.assets.mixin.client.ModelLoaderAccessor;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -14,10 +13,11 @@ import java.util.Map;
 public class ModelManager {
 
 	private final Map<Identifier, ModelLoader.BakedModelCacheKey> convertor = new Object2ObjectOpenHashMap<>();
-	private Map<BakedModel, ModelLoader.BakedModelCacheKey> revertor = new Object2ObjectOpenHashMap<>();
+	private final Map<ModelLoader.BakedModelCacheKey, BakedModel> cache = new Object2ObjectOpenHashMap<>();
+	private final Map<BakedModel, ModelLoader.BakedModelCacheKey> revertor = new Object2ObjectOpenHashMap<>();
 
-	public BakedModel convert(ModelLoader loader, Identifier reference) {
-		return ((ModelLoaderAccessor) loader).env_driven_assets$getBakedModelCache().get(this.convertor.get(reference));
+	public BakedModel convert(Identifier reference) {
+		return this.cache.get(this.convertor.get(reference));
 	}
 
 	public Identifier revert(BakedModel source) {
@@ -28,11 +28,13 @@ public class ModelManager {
 		return this.revert(MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(source));
 	}
 
-	public void appendModelIdentifier(Identifier identifier, ModelLoader.BakedModelCacheKey key) {
+	public void appendModel(Identifier identifier, ModelLoader.BakedModelCacheKey key, BakedModel model) {
 		this.convertor.put(identifier, key);
+		this.cache.put(key, model);
 	}
 
-	public void reloadRevertor(ModelLoader loader) {
-		this.revertor = EDAUtils.reverseMap(((ModelLoaderAccessor) loader).env_driven_assets$getBakedModelCache(), Object2ObjectOpenHashMap::new);
+	public void reloadRevertor() {
+		this.revertor.clear();
+		this.revertor.putAll(EDAUtils.reverseMap(this.cache, Object2ObjectOpenHashMap::new));
 	}
 }

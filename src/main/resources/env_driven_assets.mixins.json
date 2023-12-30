@@ -9,6 +9,7 @@
   "client": [
     "client.BakedModelCacheKeyAccessor",
     "client.BakedModelManagerMixin",
+    "client.BakedModelMixin",
     "client.BasicBakedModelMixin",
     "client.BlockDustParticleMixin",
     "client.BlockModelRendererMixin",
@@ -16,8 +17,8 @@
     "client.ChunkRendererRegionAccessor",
     "client.ForwardingBakedModelMixin",
     "client.JsonUnbakedModelMixin",
-    "client.ModelLoaderAccessor",
     "client.ModelLoaderMixin",
+    "client.ModelLoaderMixin$BakerImplMixin",
     "client.MultipartBakedModelMixin",
     "client.SpriteBillboardParticleAccessor",
     "client.WeightedBakedModelMixin"

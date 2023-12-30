@@ -2,7 +2,6 @@ package fr.firstmegagame4.env.driven.assets.client.impl.sodium;
 
 import fr.firstmegagame4.env.driven.assets.client.EDAEnvJsonVisitors;
 import fr.firstmegagame4.env.driven.assets.client.EDAUtils;
-import fr.firstmegagame4.env.driven.assets.client.impl.env.json.BlockEnvJsonVisitor;
 import fr.firstmegagame4.env.driven.assets.mixin.client.WorldSliceAccessor;
 import fr.firstmegagame4.env.json.api.EnvJsonVisitor;
 import fr.firstmegagame4.env.json.api.rule.SkyEnvJsonRule;
