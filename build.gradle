@@ -17,6 +17,7 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	maven { url 'https://jitpack.io' }
+	maven { url 'https://maven.cafeteria.dev/releases' }
 	exclusiveContent {
 		forRepository {
 			maven { url 'https://api.modrinth.com/maven' }
@@ -36,7 +37,7 @@ dependencies {
 	// MixinExtras
 	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.3.2")))
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
+	// Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
 	// env.json
@@ -44,6 +45,9 @@ dependencies {
 
 	// sodium-fabric, needed for compatibility
 	modImplementation "maven.modrinth:sodium:${project.sodium_version}"
+
+	// noindium, needed for weirdos that doesn't know what "compatibility" means
+	include "me.luligabi:NoIndium:${project.noindium_version}"
 }
 
 loom {

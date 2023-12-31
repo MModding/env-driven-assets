@@ -42,14 +42,14 @@ public class EDAUtils {
 
 	public static List<JsonUnbakedModel> retrieveJsonUnbakedModels(UnbakedModel unbakedModel, Function<Identifier, UnbakedModel> modelLoader) {
 		List<JsonUnbakedModel> jsonUnbakedModels = new ArrayList<>();
-		/* if (unbakedModel instanceof MultipartUnbakedModel multipart) {
+		if (unbakedModel instanceof MultipartUnbakedModel multipart) {
 			multipart.getModels().forEach(weighted -> weighted.getVariants().forEach(variant -> {
 				UnbakedModel model = modelLoader.apply(variant.getLocation());
 				if (model instanceof JsonUnbakedModel jsonUnbakedModel) {
 					jsonUnbakedModels.add(jsonUnbakedModel);
 				}
 			}));
-		} */
+		}
 		if (unbakedModel instanceof WeightedUnbakedModel weighted) {
 			weighted.getVariants().forEach(variant -> {
 				UnbakedModel model = modelLoader.apply(variant.getLocation());
