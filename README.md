@@ -1,6 +1,6 @@
 # Environment Driven Assets
 
-[<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/logo.png?raw=true" width="256" alt="env.json logo">](https://modrinth.com/mod/env-driven-assets)
+[<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/logo.png?raw=true" width="256" alt="EDA logo">](https://modrinth.com/mod/env-driven-assets)
 
 [<img src="https://github.com/JR1811/Boatism/blob/520a64b001700efc8667fbf0bd399e5daf5196b3/external/promo/badges/work_in_progress.png?raw=true" width="256" alt="This Mod is Work in Progress!">](https://github.com/FirstMegaGame4/env-driven-assets)
 
@@ -42,6 +42,15 @@ Note that Environment Driven Assets currently only loads [env.json](https://modr
 [<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/badge.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)
 
 `[<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/badge.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)`
+
+## Environment Driven New Default
+
+Environment Driven Assets provides a Built-In Resource Pack named "Environment Driven New Default" which showcases some
+features that Resource Pack Creators can use for their Resource Packs.
+
+### Gallery
+
+[<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/showcase.png?raw=true" alt="EDND Showcase Image">](https://modrinth.com/mod/env-driven-assets)
 
 ## Promotion
 
