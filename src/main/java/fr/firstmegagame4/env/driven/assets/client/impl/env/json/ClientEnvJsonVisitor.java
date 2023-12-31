@@ -11,7 +11,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -74,30 +73,43 @@ public class ClientEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applySubmerged(boolean submerged) {
-		return submerged && this.player().isPresent() && this.player().get().clientWorld.getBlockState(this.player().get().getBlockPos().up()).getFluidState().isIn(FluidTags.WATER);
+		if (this.player().isPresent()) {
+			if (submerged) {
+				return EDAUtils.lookupSubmerged(this.player().get().clientWorld, this.player().get().getBlockPos(), this.player().get().clientWorld::getBlockState);
+			}
+			else {
+				return !EDAUtils.lookupSubmerged(this.player().get().clientWorld, this.player().get().getBlockPos(), this.player().get().clientWorld::getBlockState);
+			}
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean applySky(SkyEnvJsonRule.Localization localization) {
 		return this.player().isPresent() && switch (localization) {
-			case BELOW -> this.player().get().getBlockY() <= this.player().get().clientWorld.getTopY();
-			case ABOVE -> this.player().get().getBlockY() > this.player().get().clientWorld.getTopY();
+			case BELOW -> this.player().get().getBlockY() < this.player().get().clientWorld.getTopY() - 1;
+			case AT -> this.player().get().getBlockY() == this.player().get().clientWorld.getTopY() - 1;
+			case ABOVE -> this.player().get().getBlockY() > this.player().get().clientWorld.getTopY() - 1;
 		};
 	}
 
 	@Override
 	public boolean applyWater(WaterEnvJsonRule.Localization localization) {
 		return this.player().isPresent() && switch (localization) {
-			case BELOW -> this.player().get().getBlockY() <= this.player().get().clientWorld.getTopY();
-			case ABOVE -> this.player().get().getBlockY() > this.player().get().clientWorld.getTopY();
+			case BELOW -> this.player().get().getBlockY() < this.player().get().clientWorld.getSeaLevel() - 1;
+			case AT -> this.player().get().getBlockY() == this.player().get().clientWorld.getSeaLevel() - 1;
+			case ABOVE -> this.player().get().getBlockY() > this.player().get().clientWorld.getSeaLevel() - 1;
 		};
 	}
 
 	@Override
 	public boolean applyVoid(VoidEnvJsonRule.Localization localization) {
 		return this.player().isPresent() && switch (localization) {
-			case BELOW -> this.player().get().getBlockY() <= this.player().get().clientWorld.getTopY();
-			case ABOVE -> this.player().get().getBlockY() > this.player().get().clientWorld.getTopY();
+			case BELOW -> this.player().get().getBlockY() < this.player().get().clientWorld.getBottomY();
+			case AT -> this.player().get().getBlockY() == this.player().get().clientWorld.getBottomY();
+			case ABOVE -> this.player().get().getBlockY() > this.player().get().clientWorld.getBottomY();
 		};
 	}
 

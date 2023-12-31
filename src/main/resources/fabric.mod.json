@@ -25,11 +25,11 @@
 		"env_driven_assets.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.15.3",
+		"fabricloader": ">=0.15.1",
 		"minecraft": "~1.20.4",
 		"java": ">=17",
 		"fabric-api": "*",
-		"env_json": ">=0.2.0-"
+		"env_json": ">=0.3.0-"
 	},
 	"suggests": {
 		"env-driven-data": "*"

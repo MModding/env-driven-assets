@@ -1,7 +1,9 @@
 package fr.firstmegagame4.env.driven.assets.mixin.client;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import fr.firstmegagame4.env.driven.assets.client.EDAUtils;
+import fr.firstmegagame4.env.driven.assets.client.duck.JsonUnbakedModelDuckInterface;
 import fr.firstmegagame4.env.driven.assets.client.duck.ModelLoaderDuckInterface;
 import fr.firstmegagame4.env.driven.assets.client.model.ModelManager;
 import net.minecraft.client.render.model.*;
@@ -71,8 +73,14 @@ public abstract class ModelLoaderMixin implements ModelLoaderDuckInterface {
 		@Shadow
 		ModelLoader field_40571;
 
+		@ModifyExpressionValue(method = "bake", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/json/ItemModelGenerator;create(Ljava/util/function/Function;Lnet/minecraft/client/render/model/json/JsonUnbakedModel;)Lnet/minecraft/client/render/model/json/JsonUnbakedModel;"))
+		private JsonUnbakedModel passToItem(JsonUnbakedModel original, @Local UnbakedModel unbakedModel) {
+			EDAUtils.retrieveJsonUnbakedModelDuckInterfaces(unbakedModel, this.field_40571::getOrLoadModel).forEach(ducked -> ((JsonUnbakedModelDuckInterface) original).env_driven_assets$setEnvJson(ducked.env_driven_assets$getEnvJson()));
+			return original;
+		}
+
 		@Inject(method = "bake", at = @At("RETURN"))
-		private void hookToCache(Identifier id, ModelBakeSettings settings, CallbackInfoReturnable<BakedModel> cir, @Local(ordinal = 0) ModelLoader.BakedModelCacheKey bakedModelCacheKey) {
+		private void hookToCache(Identifier id, ModelBakeSettings settings, CallbackInfoReturnable<BakedModel> cir, @Local ModelLoader.BakedModelCacheKey bakedModelCacheKey) {
 			((ModelLoaderDuckInterface) this.field_40571).env_driven_assets$getModelManager().appendModel(id, bakedModelCacheKey, cir.getReturnValue());
 		}
 	}

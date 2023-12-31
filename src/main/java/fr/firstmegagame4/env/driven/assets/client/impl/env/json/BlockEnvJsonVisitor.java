@@ -8,7 +8,6 @@ import fr.firstmegagame4.env.json.api.rule.VoidEnvJsonRule;
 import fr.firstmegagame4.env.json.api.rule.WaterEnvJsonRule;
 import it.unimi.dsi.fastutil.ints.Int2BooleanFunction;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -66,29 +65,37 @@ public class BlockEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applySubmerged(boolean submerged) {
-		return submerged && this.world.getBlockState(this.pos.up()).getFluidState().isIn(FluidTags.WATER);
+		if (submerged) {
+			return EDAUtils.lookupSubmerged(this.world, this.pos, this.world::getBlockState);
+		}
+		else {
+			return !EDAUtils.lookupSubmerged(this.world, this.pos, this.world::getBlockState);
+		}
 	}
 
 	@Override
 	public boolean applySky(SkyEnvJsonRule.Localization localization) {
 		return switch (localization) {
-			case BELOW -> this.pos.getY() <= this.world.getTopY();
-			case ABOVE -> this.pos.getY() > this.world.getTopY();
+			case BELOW -> this.pos.getY() < this.world.getTopY() - 1;
+			case AT -> this.pos.getY() == this.world.getTopY() - 1;
+			case ABOVE -> this.pos.getY() > this.world.getTopY() - 1;
 		};
 	}
 
 	@Override
 	public boolean applyWater(WaterEnvJsonRule.Localization localization) {
 		return switch (localization) {
-			case BELOW -> this.pos.getY() <= this.world.getSeaLevel();
-			case ABOVE -> this.pos.getY() > this.world.getSeaLevel();
+			case BELOW -> this.pos.getY() < this.world.getSeaLevel() - 1;
+			case AT -> this.pos.getY() == this.world.getSeaLevel() - 1;
+			case ABOVE -> this.pos.getY() > this.world.getSeaLevel() - 1;
 		};
 	}
 
 	@Override
 	public boolean applyVoid(VoidEnvJsonRule.Localization localization) {
 		return switch (localization) {
-			case BELOW -> this.pos.getY() <= this.world.getBottomY();
+			case BELOW -> this.pos.getY() < this.world.getBottomY();
+			case AT -> this.pos.getY() == this.world.getBottomY();
 			case ABOVE -> this.pos.getY() > this.world.getBottomY();
 		};
 	}

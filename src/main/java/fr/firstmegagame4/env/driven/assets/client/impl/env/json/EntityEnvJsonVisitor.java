@@ -63,29 +63,37 @@ public class EntityEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applySubmerged(boolean submerged) {
-		return submerged;
+		if (submerged) {
+			return EDAUtils.lookupSubmerged(this.entity.getWorld(), this.entity.getBlockPos(), this.entity.getWorld()::getBlockState);
+		}
+		else {
+			return !EDAUtils.lookupSubmerged(this.entity.getWorld(), this.entity.getBlockPos(), this.entity.getWorld()::getBlockState);
+		}
 	}
 
 	@Override
 	public boolean applySky(SkyEnvJsonRule.Localization localization) {
 		return switch (localization) {
-			case BELOW -> this.entity.getBlockY() <= this.entity.getWorld().getTopY();
-			case ABOVE -> this.entity.getBlockY() > this.entity.getWorld().getTopY();
+			case BELOW -> this.entity.getBlockY() < this.entity.getWorld().getTopY() - 1;
+			case AT -> this.entity.getBlockY() == this.entity.getWorld().getTopY() - 1;
+			case ABOVE -> this.entity.getBlockY() > this.entity.getWorld().getTopY() - 1;
 		};
 	}
 
 	@Override
 	public boolean applyWater(WaterEnvJsonRule.Localization localization) {
 		return switch (localization) {
-			case BELOW -> this.entity.getBlockY() <= this.entity.getWorld().getSeaLevel();
-			case ABOVE -> this.entity.getBlockY() > this.entity.getWorld().getSeaLevel();
+			case BELOW -> this.entity.getBlockY() < this.entity.getWorld().getSeaLevel() - 1;
+			case AT -> this.entity.getBlockY() == this.entity.getWorld().getSeaLevel() - 1;
+			case ABOVE -> this.entity.getBlockY() > this.entity.getWorld().getSeaLevel() - 1;
 		};
 	}
 
 	@Override
 	public boolean applyVoid(VoidEnvJsonRule.Localization localization) {
 		return switch (localization) {
-			case BELOW -> this.entity.getBlockY() <= this.entity.getWorld().getBottomY();
+			case BELOW -> this.entity.getBlockY() < this.entity.getWorld().getBottomY();
+			case AT -> this.entity.getBlockY() == this.entity.getWorld().getBottomY();
 			case ABOVE -> this.entity.getBlockY() > this.entity.getWorld().getBottomY();
 		};
 	}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "env_driven_new_default:block/wet_grass",
+    "down": "env_driven_new_default:block/wet_soil",
+    "north": "env_driven_new_default:block/wet_grass_side",
+    "south": "env_driven_new_default:block/wet_grass_side",
+    "west": "env_driven_new_default:block/wet_grass_side",
+    "east": "env_driven_new_default:block/wet_grass_side",
+    "particle": "env_driven_new_default:block/wet_soil"
+  }
+}

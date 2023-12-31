@@ -1,6 +1,7 @@
 package fr.firstmegagame4.env.driven.assets.client;
 
 import fr.firstmegagame4.env.driven.assets.client.duck.JsonUnbakedModelDuckInterface;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.MultipartUnbakedModel;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
@@ -10,8 +11,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class EDAUtils {
@@ -32,6 +37,34 @@ public class EDAUtils {
 
 	public static <T> boolean isIn(DynamicRegistryManager manager, RegistryKey<? extends Registry<T>> registry, TagKey<T> tag, RegistryEntry<T> entry) {
 		return manager.get(registry).getEntryList(tag).orElseThrow().contains(entry);
+	}
+
+	public static boolean lookupSubmerged(World world, BlockPos pos, Function<BlockPos, BlockState> stateFinder) {
+		BlockPos upPos = pos.up();
+		boolean valid = true;
+		for (Direction direction : Direction.Type.HORIZONTAL) {
+			BlockState state = stateFinder.apply(upPos.offset(direction));
+			if (!state.getFluidState().isIn(FluidTags.WATER) && !state.isFullCube(world, pos)) {
+				valid = false;
+			}
+		}
+		if (valid) {
+			List<Direction> directions = new ArrayList<>(List.of(Direction.values()));
+			directions.remove(Direction.DOWN);
+			return EDAUtils.lookupAround(pos, stateFinder, state -> state.getFluidState().isIn(FluidTags.WATER), directions.toArray(new Direction[] {}));
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static boolean lookupAround(BlockPos pos, Function<BlockPos, BlockState> stateFinder, Predicate<BlockState> condition, Direction[] directions) {
+		for (Direction direction : directions) {
+			if (condition.test(stateFinder.apply(pos.offset(direction)))) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static <K, V> Map<V, K> reverseMap(Map<K, V> original, Supplier<Map<V, K>> creator) {

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "env_driven_new_default:block/cherry_torch"
+  }
+}

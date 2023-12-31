@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_torch",
+  "textures": {
+    "torch": "env_driven_new_default:block/bamboo_torch"
+  }
+}
