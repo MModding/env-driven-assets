@@ -50,7 +50,10 @@ features that Resource Pack Creators can use for their Resource Packs.
 
 ### Gallery
 
-[<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/showcase.png?raw=true" alt="EDND Showcase Image">](https://modrinth.com/mod/env-driven-assets)
+<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/showcase.png?raw=true" alt="EDND Showcase Image">
+
+#### EDND Feature Showcase: Few Patches Of Snow Before The True Snowy Grass Block
+
 
 ## Promotion
 
