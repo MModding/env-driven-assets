@@ -34,8 +34,10 @@ public class BakedModelManagerMixin implements BakedModelManagerDuckInterface {
 	private static <F, S> Pair<F, S> mutateModelValue(F first, S second, Operation<Pair<F, S>> original, @Local Map.Entry<Identifier, Resource> entry) {
 		ExtendedResource resource = ExtendedResource.of(entry.getValue());
 		try {
-			if (resource.getEnvJson() != null) EDAUtils.LOGGER.info("env.json file detected for model " + entry.getKey());
-			((JsonUnbakedModelDuckInterface) second).env_driven_assets$setEnvJson(resource.getEnvJson());
+			if (resource.getEnvJson() != null) {
+				EDAUtils.LOGGER.info("env.json file detected for model " + entry.getKey());
+				((JsonUnbakedModelDuckInterface) second).env_driven_assets$setEnvJson(resource.getEnvJson());
+			}
 		}
 		catch (Exception exception) {
 			EDAUtils.LOGGER.error("Failed to load env.json file for model {}", entry.getKey(), exception);

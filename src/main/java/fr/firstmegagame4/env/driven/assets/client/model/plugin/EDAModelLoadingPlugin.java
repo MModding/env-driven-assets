@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 public class EDAModelLoadingPlugin implements ModelLoadingPlugin {
 
 	private static BakedModel modifyModelAfterBake(@Nullable BakedModel model, ModelModifier.AfterBake.Context context) {
-		if (model != null) {
+		if (model != null && !model.isBuiltin()) {
 			if (context.sourceModel() instanceof JsonUnbakedModelDuckInterface jum && model instanceof BakedModelDuckInterface ducked) {
 				ducked.env_driven_assets$setEnvJson(jum.env_driven_assets$getEnvJson());
 				return new EDABakedModel(context.loader(), model);

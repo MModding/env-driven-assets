@@ -1,7 +1,6 @@
 package fr.firstmegagame4.env.driven.assets.mixin.client;
 
 import fr.firstmegagame4.env.driven.assets.client.EDAEnvJsonVisitors;
-import fr.firstmegagame4.env.driven.assets.client.EDAUtils;
 import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelDuckInterface;
 import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelManagerDuckInterface;
 import net.minecraft.block.BlockState;

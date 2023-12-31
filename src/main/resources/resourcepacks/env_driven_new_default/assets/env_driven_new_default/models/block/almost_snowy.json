@@ -1,0 +1,12 @@
+{
+  "parent": "env_driven_new_default:block/snowy",
+  "textures": {
+    "particle": "block/dirt",
+    "bottom": "block/dirt",
+    "top": "block/grass_block_top",
+    "side": "block/grass_block_side",
+    "overlay": "block/grass_block_side_overlay",
+    "snow": "env_driven_new_default:block/almost_snowy",
+    "snow_side": "env_driven_new_default:block/almost_snowy_side"
+  }
+}

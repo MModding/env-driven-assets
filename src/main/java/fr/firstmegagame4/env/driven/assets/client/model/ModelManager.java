@@ -17,7 +17,13 @@ public class ModelManager {
 	private final Map<BakedModel, ModelLoader.BakedModelCacheKey> revertor = new Object2ObjectOpenHashMap<>();
 
 	public BakedModel convert(Identifier reference) {
-		return this.cache.get(this.convertor.get(reference));
+		BakedModel model = this.cache.get(this.convertor.get(reference));;
+		if (model != null) {
+			return model;
+		}
+		else {
+			throw new IllegalArgumentException("Model " + reference + " has not been baked");
+		}
 	}
 
 	public Identifier revert(BakedModel source) {

@@ -18,16 +18,6 @@ public class JsonUnbakedModelMixin implements JsonUnbakedModelDuckInterface {
 	@Unique
 	private EnvJson envJson = null;
 
-	@Override
-	public EnvJson env_driven_assets$getEnvJson() {
-		return this.envJson;
-	}
-
-	@Override
-	public void env_driven_assets$setEnvJson(EnvJson envJson) {
-		this.envJson = envJson;
-	}
-
 	/* @Inject(method = "deserialize(Ljava/io/Reader;)Lnet/minecraft/client/render/model/json/JsonUnbakedModel;", at = @At("TAIL"), cancellable = true)
 	private static void retrieveEnvJson(Reader input, CallbackInfoReturnable<JsonUnbakedModel> cir) {
 		if (FabricLoader.getInstance().isModLoaded("modernfix")) {
@@ -50,5 +40,15 @@ public class JsonUnbakedModelMixin implements JsonUnbakedModelDuckInterface {
 			this.envJson.members().forEach(member -> dependencies.add(member.result()));
 		}
 		cir.setReturnValue(dependencies);
+	}
+
+	@Override
+	public EnvJson env_driven_assets$getEnvJson() {
+		return this.envJson;
+	}
+
+	@Override
+	public void env_driven_assets$setEnvJson(EnvJson envJson) {
+		this.envJson = envJson;
 	}
 }

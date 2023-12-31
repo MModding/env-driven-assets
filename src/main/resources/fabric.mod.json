@@ -3,20 +3,21 @@
 	"id": "env_driven_assets",
 	"version": "${version}",
 	"name": "Environment Driven Assets",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Environment Driven Assets is a FabricMC mod which implements the env.json library in order to apply it on vanilla asset types.",
 	"authors": [
 		"FirstMegaGame4"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/env-driven-assets",
-		"sources": "https://github.com/FirstMegaGame4/env-driven-assets"
+		"sources": "https://github.com/FirstMegaGame4/env-driven-assets",
+		"issues": "https://github.com/FirstMegaGame4/env-driven-assets/issues"
 	},
-	"license": "LGPL-3.0",
+	"license": "Code: LGPL-3.0\\nAssets: All Rights Reserved",
 	"icon": "assets/env_driven_assets/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-          "fr.firstmegagame4.env.driven.assets.client.EnvironmentDrivenAssets"
+			"fr.firstmegagame4.env.driven.assets.client.EnvironmentDrivenAssets"
 		]
 	},
 	"accessWidener": "env_driven_assets.accesswidener",
@@ -28,7 +29,7 @@
 		"minecraft": "~1.20.4",
 		"java": ">=17",
 		"fabric-api": "*",
-		"env_json": ">=0.1.0-"
+		"env_json": ">=0.2.0-"
 	},
 	"suggests": {
 		"env-driven-data": "*"
