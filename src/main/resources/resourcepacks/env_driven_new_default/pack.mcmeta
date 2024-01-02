@@ -1,6 +1,10 @@
 {
   "pack": {
     "pack_format": 22,
+    "supported_formats": {
+      "min_inclusive": 15,
+      "max_inclusive": 22
+    },
     "description": {
       "translate": "resourcePack.env_driven_assets.env_driven_new_default.desc"
     }
