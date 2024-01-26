@@ -18,21 +18,6 @@ public class JsonUnbakedModelMixin implements JsonUnbakedModelDuckInterface {
 	@Unique
 	private EnvJson envJson = null;
 
-	/* @Inject(method = "deserialize(Ljava/io/Reader;)Lnet/minecraft/client/render/model/json/JsonUnbakedModel;", at = @At("TAIL"), cancellable = true)
-	private static void retrieveEnvJson(Reader input, CallbackInfoReturnable<JsonUnbakedModel> cir) {
-		if (FabricLoader.getInstance().isModLoaded("modernfix")) {
-			JsonUnbakedModelDuckInterface ducked = (JsonUnbakedModelDuckInterface) cir.getReturnValue();
-			if (input instanceof ExtendedResourceReader reader) {
-				try {
-					ducked.env_driven_assets$setEnvJson(reader.getExtendedResource().getEnvJson());
-				} catch (IOException ioException) {
-					throw new JsonParseException(ioException);
-				}
-			}
-			cir.setReturnValue((JsonUnbakedModel) ducked);
-		}
-	} */
-
 	@Inject(method = "getModelDependencies", at = @At("TAIL"), cancellable = true)
 	private void mutateDependencies(CallbackInfoReturnable<Collection<Identifier>> cir) {
 		Collection<Identifier> dependencies = cir.getReturnValue();

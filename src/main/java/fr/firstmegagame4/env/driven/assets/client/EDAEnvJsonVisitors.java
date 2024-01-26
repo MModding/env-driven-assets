@@ -1,5 +1,7 @@
 package fr.firstmegagame4.env.driven.assets.client;
 
+import com.moulberry.axiom.render.regions.ChunkedBlockRegion;
+import fr.firstmegagame4.env.driven.assets.client.impl.axiom.AxiomBlockEnvJsonVisitor;
 import fr.firstmegagame4.env.driven.assets.client.impl.env.json.BlockEnvJsonVisitor;
 import fr.firstmegagame4.env.driven.assets.client.impl.env.json.ClientEnvJsonVisitor;
 import fr.firstmegagame4.env.driven.assets.client.impl.env.json.EntityEnvJsonVisitor;
@@ -28,6 +30,11 @@ public class EDAEnvJsonVisitors {
 		else if (FabricLoader.getInstance().isModLoaded("sodium")) {
 			if (view instanceof WorldSlice slice) {
 				return new SodiumBlockEnvJsonVisitor(slice, pos);
+			}
+		}
+		else if (FabricLoader.getInstance().isModLoaded("axiom")) {
+			if (view instanceof ChunkedBlockRegion region) {
+				return new AxiomBlockEnvJsonVisitor.ChunkedBlock(region, pos);
 			}
 		}
 		return new EmptyVisitor();

@@ -26,7 +26,7 @@ public class BlockModelRendererMixin {
 			Identifier identifier = envJson.apply(EDAEnvJsonVisitors.blockVisitor(world, pos));
 			if (identifier != null) {
 				BakedModelManagerDuckInterface bakedModelManager = (BakedModelManagerDuckInterface) MinecraftClient.getInstance().getBakedModelManager();
-				return bakedModelManager.env_driven_assets$convert(identifier);
+				return bakedModelManager.env_driven_assets$convert(original, identifier);
 			}
 		}
 		return original;

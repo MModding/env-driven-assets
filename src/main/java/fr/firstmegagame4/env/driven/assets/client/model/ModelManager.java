@@ -1,7 +1,8 @@
 package fr.firstmegagame4.env.driven.assets.client.model;
 
 import fr.firstmegagame4.env.driven.assets.client.EDAUtils;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import fr.firstmegagame4.env.driven.assets.mixin.client.BakedModelCacheKeyAccessor;
+import net.fabricmc.fabric.api.renderer.v1.model.WrapperBakedModel;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
@@ -12,12 +13,17 @@ import java.util.Map;
 
 public class ModelManager {
 
-	private final Map<Identifier, ModelLoader.BakedModelCacheKey> convertor = new Object2ObjectOpenHashMap<>();
-	private final Map<ModelLoader.BakedModelCacheKey, BakedModel> cache = new Object2ObjectOpenHashMap<>();
-	private final Map<BakedModel, ModelLoader.BakedModelCacheKey> revertor = new Object2ObjectOpenHashMap<>();
+	private final Map<ModelLoader.BakedModelCacheKey, BakedModel> cache = new EDAUtils.ActionHashMap<>(i -> i, WrapperBakedModel::unwrap);
 
-	public BakedModel convert(Identifier reference) {
-		BakedModel model = this.cache.get(this.convertor.get(reference));;
+	private final Map<BakedModel, ModelLoader.BakedModelCacheKey> reverted = new EDAUtils.ActionHashMap<>(WrapperBakedModel::unwrap, i -> i);
+
+	public BakedModel changeModelAndKeepSettings(BakedModel source, Identifier reference) {
+		ModelLoader.BakedModelCacheKey sourceKey = this.reverted.get(source);
+		if (sourceKey == null) {
+			throw new IllegalStateException("Could not change model to " + reference);
+		}
+		ModelLoader.BakedModelCacheKey targetKey = BakedModelCacheKeyAccessor.env_driven_assets$init(reference, sourceKey.transformation(), sourceKey.isUvLocked());
+		BakedModel model = this.cache.get(targetKey);
 		if (model != null) {
 			return model;
 		}
@@ -26,21 +32,20 @@ public class ModelManager {
 		}
 	}
 
-	public Identifier revert(BakedModel source) {
-		return this.revertor.get(source).id();
+	public Identifier idFromModel(BakedModel source) {
+		return this.reverted.get(source).id();
 	}
 
-	public Identifier revert(BlockState source) {
-		return this.revert(MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(source));
+	public BakedModel modelFromState(BlockState source) {
+		return MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(source);
 	}
 
-	public void appendModel(Identifier identifier, ModelLoader.BakedModelCacheKey key, BakedModel model) {
-		this.convertor.put(identifier, key);
+	public Identifier idFromState(BlockState source) {
+		return this.idFromModel(this.modelFromState(source));
+	}
+
+	public void appendModel(ModelLoader.BakedModelCacheKey key, BakedModel model) {
 		this.cache.put(key, model);
-	}
-
-	public void reloadRevertor() {
-		this.revertor.clear();
-		this.revertor.putAll(EDAUtils.reverseMap(this.cache, Object2ObjectOpenHashMap::new));
+		this.reverted.put(model, key);
 	}
 }

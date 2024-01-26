@@ -49,21 +49,25 @@ public class BakedModelManagerMixin implements BakedModelManagerDuckInterface {
 	@Inject(method = "upload", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;getBakedModelMap()Ljava/util/Map;"))
 	private void hookModelLoader(BakedModelManager.BakingResult bakingResult, Profiler profiler, CallbackInfo ci) {
 		this.modelLoader = bakingResult.modelLoader();
-		((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().reloadRevertor();
 	}
 
 	@Override
-	public BakedModel env_driven_assets$convert(Identifier reference) {
-		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().convert(reference);
+	public BakedModel env_driven_assets$convert(BakedModel source, Identifier reference) {
+		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().changeModelAndKeepSettings(source, reference);
 	}
 
 	@Override
 	public Identifier env_driven_assets$revert(BakedModel source) {
-		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().revert(source);
+		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().idFromModel(source);
+	}
+
+	@Override
+	public BakedModel env_driven_assets$fetch(BlockState source) {
+		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().modelFromState(source);
 	}
 
 	@Override
 	public Identifier env_driven_assets$revert(BlockState source) {
-		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().revert(source);
+		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().idFromState(source);
 	}
 }

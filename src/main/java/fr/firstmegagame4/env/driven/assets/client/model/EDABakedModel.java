@@ -42,7 +42,7 @@ public class EDABakedModel extends ForwardingBakedModel {
 		if (this.getEnvJson() != null) {
 			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.blockVisitor(blockView, pos));
 			if (identifier != null) {
-				this.manager.convert(identifier).emitBlockQuads(blockView, state, pos, randomSupplier, context, true);
+				this.manager.changeModelAndKeepSettings(this, identifier).emitBlockQuads(blockView, state, pos, randomSupplier, context, true);
 				return;
 			}
 		}
@@ -54,7 +54,7 @@ public class EDABakedModel extends ForwardingBakedModel {
 		if (this.getEnvJson() != null) {
 			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.clientVisitor(MinecraftClient.getInstance()));
 			if (identifier != null) {
-				this.manager.convert(identifier).emitItemQuads(stack, randomSupplier, context, true);
+				this.manager.changeModelAndKeepSettings(this, identifier).emitItemQuads(stack, randomSupplier, context, true);
 				return;
 			}
 		}

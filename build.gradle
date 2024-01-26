@@ -46,6 +46,13 @@ dependencies {
 	// sodium-fabric, needed for compatibility
 	modImplementation "maven.modrinth:sodium:${project.sodium_version}"
 
+	// Axiom is an All Rights Reserved project which is under its own eula (https://axiom.moulberry.com/eula)
+	// I received an explicit permission from Moulberry (current Axiom maintainer) to access and use Axiom's code by Modrinth Maven for that project
+	// as long I'm using it to create and keep compatibility
+
+	modImplementation "maven.modrinth:axiom:${project.axiom_version}"
+	modCompileOnly "com.github.moulberry:AxiomClientAPI:1.0.5.3"
+
 	// noindium, needed for weirdos that doesn't know what "compatibility" means
 	include "me.luligabi:NoIndium:${project.noindium_version}"
 }
