@@ -5,12 +5,11 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Pair;
 import fr.firstmegagame4.env.driven.assets.client.EDAUtils;
-import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelManagerDuckInterface;
+import fr.firstmegagame4.env.driven.assets.client.injected.ModelManagerContainer;
 import fr.firstmegagame4.env.driven.assets.client.duck.JsonUnbakedModelDuckInterface;
 import fr.firstmegagame4.env.driven.assets.client.duck.ModelLoaderDuckInterface;
+import fr.firstmegagame4.env.driven.assets.client.model.ModelManager;
 import fr.firstmegagame4.env.json.api.resource.ExtendedResource;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.resource.Resource;
@@ -25,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 
 @Mixin(BakedModelManager.class)
-public class BakedModelManagerMixin implements BakedModelManagerDuckInterface {
+public class BakedModelManagerMixin implements ModelManagerContainer {
 
 	@Unique
 	private ModelLoader modelLoader = null;
@@ -52,22 +51,8 @@ public class BakedModelManagerMixin implements BakedModelManagerDuckInterface {
 	}
 
 	@Override
-	public BakedModel env_driven_assets$convert(BakedModel source, Identifier reference) {
-		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().changeModelAndKeepSettings(source, reference);
-	}
-
-	@Override
-	public Identifier env_driven_assets$revert(BakedModel source) {
-		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().idFromModel(source);
-	}
-
-	@Override
-	public BakedModel env_driven_assets$fetch(BlockState source) {
-		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().modelFromState(source);
-	}
-
-	@Override
-	public Identifier env_driven_assets$revert(BlockState source) {
-		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager().idFromState(source);
+	@SuppressWarnings("AddedMixinMembersNamePattern")
+	public ModelManager getModelManager() {
+		return ((ModelLoaderDuckInterface) this.modelLoader).env_driven_assets$getModelManager();
 	}
 }

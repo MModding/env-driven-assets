@@ -36,7 +36,8 @@
 	},
 	"custom": {
 		"loom:injected_interfaces": {
-			"net/minecraft/class_1087": [ "fr/firstmegagame4/env/driven/assets/client/injected/BakedModelRedirection" ]
+			"net/minecraft/class_1087": [ "fr/firstmegagame4/env/driven/assets/client/injected/BakedModelRedirection" ],
+			"net/minecraft/class_1092": [ "fr/firstmegagame4/env/driven/assets/client/injected/ModelManagerContainer" ]
 		},
 		"modmenu": {
 			"parent": "env_json"

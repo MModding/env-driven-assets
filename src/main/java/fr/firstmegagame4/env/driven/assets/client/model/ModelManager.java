@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.renderer.v1.model.WrapperBakedModel;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.util.Identifier;
 
@@ -13,17 +14,13 @@ import java.util.Map;
 
 public class ModelManager {
 
-	private final Map<ModelLoader.BakedModelCacheKey, BakedModel> cache = new EDAUtils.ActionHashMap<>(i -> i, WrapperBakedModel::unwrap);
+	public final Map<ModelLoader.BakedModelCacheKey, BakedModel> settingsCache = new EDAUtils.ActionHashMap<>(i -> i, WrapperBakedModel::unwrap);
 
-	private final Map<BakedModel, ModelLoader.BakedModelCacheKey> reverted = new EDAUtils.ActionHashMap<>(WrapperBakedModel::unwrap, i -> i);
+	private final Map<Identifier, BakedModel> identifierCache = new EDAUtils.ActionHashMap<>(i -> i, WrapperBakedModel::unwrap);
 
-	public BakedModel changeModelAndKeepSettings(BakedModel source, Identifier reference) {
-		ModelLoader.BakedModelCacheKey sourceKey = this.reverted.get(source);
-		if (sourceKey == null) {
-			throw new IllegalStateException("Could not change model to " + reference);
-		}
-		ModelLoader.BakedModelCacheKey targetKey = BakedModelCacheKeyAccessor.env_driven_assets$init(reference, sourceKey.transformation(), sourceKey.isUvLocked());
-		BakedModel model = this.cache.get(targetKey);
+	public BakedModel changeModelWithSettings(Identifier reference, ModelBakeSettings settings) {
+		ModelLoader.BakedModelCacheKey targetKey = BakedModelCacheKeyAccessor.env_driven_assets$init(reference, settings.getRotation(), settings.isUvLocked());
+		BakedModel model = this.settingsCache.get(targetKey);
 		if (model != null) {
 			return model;
 		}
@@ -32,20 +29,16 @@ public class ModelManager {
 		}
 	}
 
-	public Identifier idFromModel(BakedModel source) {
-		return this.reverted.get(source).id();
+	public BakedModel changeModelWithoutSettings(Identifier reference) {
+		return this.identifierCache.get(reference);
 	}
 
 	public BakedModel modelFromState(BlockState source) {
 		return MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(source);
 	}
 
-	public Identifier idFromState(BlockState source) {
-		return this.idFromModel(this.modelFromState(source));
-	}
-
 	public void appendModel(ModelLoader.BakedModelCacheKey key, BakedModel model) {
-		this.cache.put(key, model);
-		this.reverted.put(model, key);
+		this.settingsCache.put(key, model);
+		this.identifierCache.put(key.id(), model);
 	}
 }

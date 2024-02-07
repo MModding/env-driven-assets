@@ -3,7 +3,8 @@ package fr.firstmegagame4.env.driven.assets.mixin.client;
 import com.llamalad7.mixinextras.sugar.Local;
 import fr.firstmegagame4.env.driven.assets.client.EDAEnvJsonVisitors;
 import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelDuckInterface;
-import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelManagerDuckInterface;
+import fr.firstmegagame4.env.driven.assets.client.injected.ModelManagerContainer;
+import fr.firstmegagame4.env.driven.assets.client.model.ModelManager;
 import fr.firstmegagame4.env.json.api.EnvJson;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.BlockModelRenderer;
@@ -25,8 +26,8 @@ public class BlockModelRendererMixin {
 			EnvJson envJson = ducked.env_driven_assets$getEnvJson();
 			Identifier identifier = envJson.apply(EDAEnvJsonVisitors.blockVisitor(world, pos));
 			if (identifier != null) {
-				BakedModelManagerDuckInterface bakedModelManager = (BakedModelManagerDuckInterface) MinecraftClient.getInstance().getBakedModelManager();
-				return bakedModelManager.env_driven_assets$convert(original, identifier);
+				ModelManager manager = ((ModelManagerContainer) MinecraftClient.getInstance().getBakedModelManager()).getModelManager();
+				return manager.changeModelWithoutSettings(identifier);
 			}
 		}
 		return original;

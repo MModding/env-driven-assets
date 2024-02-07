@@ -5,10 +5,12 @@ import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelDuckInterface;
 import fr.firstmegagame4.env.driven.assets.client.duck.ModelLoaderDuckInterface;
 import fr.firstmegagame4.env.json.api.EnvJson;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
+import net.fabricmc.fabric.api.renderer.v1.model.WrapperBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -21,10 +23,12 @@ import java.util.function.Supplier;
 public class EDABakedModel extends ForwardingBakedModel {
 
 	private final ModelManager manager;
+	private final ModelBakeSettings settings;
 
-	public EDABakedModel(ModelLoader loader, BakedModel wrapped) {
+	public EDABakedModel(ModelLoader loader, BakedModel wrapped, ModelBakeSettings settings) {
 		this.manager = ((ModelLoaderDuckInterface) loader).env_driven_assets$getModelManager();
 		this.wrapped = wrapped;
+		this.settings = settings;
 	}
 
 	@Override
@@ -42,7 +46,7 @@ public class EDABakedModel extends ForwardingBakedModel {
 		if (this.getEnvJson() != null) {
 			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.blockVisitor(blockView, pos));
 			if (identifier != null) {
-				this.manager.changeModelAndKeepSettings(this, identifier).emitBlockQuads(blockView, state, pos, randomSupplier, context, true);
+				this.manager.changeModelWithSettings(identifier, this.settings).emitBlockQuads(blockView, state, pos, randomSupplier, context, true);
 				return;
 			}
 		}
@@ -54,7 +58,7 @@ public class EDABakedModel extends ForwardingBakedModel {
 		if (this.getEnvJson() != null) {
 			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.clientVisitor(MinecraftClient.getInstance()));
 			if (identifier != null) {
-				this.manager.changeModelAndKeepSettings(this, identifier).emitItemQuads(stack, randomSupplier, context, true);
+				this.manager.changeModelWithSettings(identifier, this.settings).emitItemQuads(stack, randomSupplier, context, true);
 				return;
 			}
 		}
@@ -67,6 +71,6 @@ public class EDABakedModel extends ForwardingBakedModel {
 	}
 
 	private EnvJson getEnvJson() {
-		return ((BakedModelDuckInterface) this).env_driven_assets$getEnvJson();
+		return ((BakedModelDuckInterface) WrapperBakedModel.unwrap(this)).env_driven_assets$getEnvJson();
 	}
 }

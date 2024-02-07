@@ -1,13 +1,28 @@
 package fr.firstmegagame4.env.driven.assets.client;
 
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.context.CommandContext;
+import fr.firstmegagame4.env.driven.assets.client.injected.ModelManagerContainer;
+import fr.firstmegagame4.env.driven.assets.client.model.ModelManager;
 import fr.firstmegagame4.env.driven.assets.client.model.plugin.EDAModelLoadingPlugin;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class EnvironmentDrivenAssets implements ClientModInitializer {
 
@@ -23,6 +38,43 @@ public class EnvironmentDrivenAssets implements ClientModInitializer {
 				ResourcePackActivationType.DEFAULT_ENABLED
 			)
 		);
+		ClientCommandRegistrationCallback.EVENT.register(EnvironmentDrivenAssets::registerBakingOutputProducerCommand);
+	}
+
+	private static void registerBakingOutputProducerCommand(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandRegistryAccess registries) {
+		dispatcher.register(ClientCommandManager.literal("produce-baking-output").executes(EnvironmentDrivenAssets::produceBakingOutput));
+	}
+
+	public static int produceBakingOutput(CommandContext<FabricClientCommandSource> source) {
+		try {
+			FileWriter writer = new FileWriter(new File(
+				FabricLoader.getInstance().getGameDir().toFile(),
+				new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(Calendar.getInstance()) + ".eda-output.txt")
+			);
+			MinecraftClient client = MinecraftClient.getInstance();
+			if (client == null) return 0;
+			ModelManager manager = ((ModelManagerContainer) client.getBakedModelManager()).getModelManager();
+			manager.settingsCache.forEach(
+				(key, model) -> {
+					try {
+						writer.write(
+							"BakedModelCacheKey: {"
+								+ "Identifier: " + key.id().toString() + "; "
+								+ "AffineTransformation: " + key.transformation() + "; "
+								+ "IsUvLocked: " + key.isUvLocked() + ";"
+								+ "}\n"
+						);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+			);
+			writer.close();
+			source.getSource().sendFeedback(Text.of("eda-output.txt got written"));
+			return 1;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public static String id() {

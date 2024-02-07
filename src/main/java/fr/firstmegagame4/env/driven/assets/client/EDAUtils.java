@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class EDAUtils {
 
@@ -69,12 +68,6 @@ public class EDAUtils {
 		return false;
 	}
 
-	public static <K, V> Map<V, K> reverseMap(Map<K, V> original, Supplier<Map<V, K>> creator) {
-		Map<V, K> reversed = creator.get();
-		original.forEach((key, value) -> reversed.put(value, key));
-		return reversed;
-	}
-
 	public static List<JsonUnbakedModel> retrieveJsonUnbakedModels(UnbakedModel unbakedModel, Function<Identifier, UnbakedModel> modelLoader) {
 		List<JsonUnbakedModel> jsonUnbakedModels = new ArrayList<>();
 		if (unbakedModel instanceof MultipartUnbakedModel multipart) {
@@ -108,26 +101,8 @@ public class EDAUtils {
 		private final Function<K, K> keyAction;
 		private final Function<V, V> valueAction;
 
-		public ActionHashMap(Function<K, K> keyAction, Function<V, V> valueAction, int initialCapacity, float loadFactor) {
-			super(initialCapacity, loadFactor);
-			this.keyAction = keyAction;
-			this.valueAction = valueAction;
-		}
-
-		public ActionHashMap(Function<K, K> keyAction, Function<V, V> valueAction, int initialCapacity) {
-			super(initialCapacity);
-			this.keyAction = keyAction;
-			this.valueAction = valueAction;
-		}
-
 		public ActionHashMap(Function<K, K> keyAction, Function<V, V> valueAction) {
 			super();
-			this.keyAction = keyAction;
-			this.valueAction = valueAction;
-		}
-
-		public ActionHashMap(Function<K, K> keyAction, Function<V, V> valueAction, Map<? extends K, ? extends V> m) {
-			super(m);
 			this.keyAction = keyAction;
 			this.valueAction = valueAction;
 		}
