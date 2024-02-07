@@ -96,12 +96,14 @@ public abstract class ModelLoaderMixin implements ModelLoaderDuckInterface {
 			if (unbakedModel instanceof JsonUnbakedModelDuckInterface jum && jum.env_driven_assets$getEnvJson() != null) {
 				jum.env_driven_assets$getEnvJson().members().forEach(member -> {
 					UnbakedModel envJsonModel = this.field_40571.getOrLoadModel(member.result());
-					BakedModel bakedModel = envJsonModel.bake((Baker) this, this.textureGetter, settings, member.result());
-					((ModelLoaderDuckInterface) this.field_40571).env_driven_assets$getModelManager().appendModel(
-						BakedModelCacheKeyAccessor.env_driven_assets$init(member.result(), settings.getRotation(), settings.isUvLocked()),
-						bakedModel
-					);
-					System.out.println("SourceModel: " + id + " TargetModel: " + member.result() + " Rotation: " + settings.getRotation() + " UVLocked: " + settings.isUvLocked());
+					// It's currently not a way I like to apply the rotations, need to find a better way in the future
+					for (ModelRotation rotation : ModelRotation.values()) {
+						BakedModel rotatedModel = envJsonModel.bake((Baker) this, this.textureGetter, rotation, member.result());
+						((ModelLoaderDuckInterface) this.field_40571).env_driven_assets$getModelManager().appendModel(
+							BakedModelCacheKeyAccessor.env_driven_assets$init(member.result(), rotation.getRotation(), rotation.isUvLocked()),
+							rotatedModel
+						);
+					}
 				});
 			}
 		}
