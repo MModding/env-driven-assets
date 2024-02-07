@@ -1,5 +1,6 @@
 accessWidener v1 named
 
+accessible class com/moulberry/axiom/render/ChunkRenderOverrider$MappedBlockAndTintGetter
 accessible class net/minecraft/client/render/model/BakedModelManager$BakingResult
 accessible class net/minecraft/client/render/model/ModelLoader$BakedModelCacheKey
 accessible class net/minecraft/client/render/model/ModelLoader$BakerImpl

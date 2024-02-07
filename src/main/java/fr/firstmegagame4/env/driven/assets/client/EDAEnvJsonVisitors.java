@@ -34,7 +34,7 @@ public class EDAEnvJsonVisitors {
 		}
 		else if (FabricLoader.getInstance().isModLoaded("axiom")) {
 			if (view instanceof ChunkedBlockRegion region) {
-				return new AxiomBlockEnvJsonVisitor.ChunkedBlock(region, pos);
+				return new AxiomBlockEnvJsonVisitor.ChunkedBlockVisitor(region, pos);
 			}
 		}
 		return new EmptyVisitor();
