@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "fr.firstmegagame4.env.driven.assets.plugin.mixin.client.EDAMixinPlugin",
   "mixins": [
+    "client.ChunkedBlockRegionMixin",
+    "client.MappedBlockAndTintGetterMixin",
     "client.WorldSliceAccessor"
   ],
   "client": [

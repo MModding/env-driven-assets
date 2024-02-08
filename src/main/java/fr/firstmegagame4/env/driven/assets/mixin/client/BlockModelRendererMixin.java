@@ -13,14 +13,25 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(BlockModelRenderer.class)
 public class BlockModelRendererMixin {
 
-	@ModifyVariable(method = "render(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/client/render/model/BakedModel;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;ZLnet/minecraft/util/math/random/Random;JI)V", at = @At("HEAD"), argsOnly = true)
-	private BakedModel mutateBakedModel(BakedModel original, @Local BlockRenderView world, @Local BlockPos pos) {
+	@ModifyVariable(method = "renderSmooth", at = @At("HEAD"), argsOnly = true, index = 2)
+	private BakedModel mutateSmooth(BakedModel original, @Local(argsOnly = true) BlockRenderView world, @Local(argsOnly = true) BlockPos pos) {
+		return this.mutateBakedModel(original, world, pos);
+	}
+
+	@ModifyVariable(method = "renderFlat", at = @At("HEAD"), argsOnly = true, index = 2)
+	private BakedModel mutateFlat(BakedModel original, @Local(argsOnly = true) BlockRenderView world, @Local(argsOnly = true) BlockPos pos) {
+		return this.mutateBakedModel(original, world, pos);
+	}
+
+	@Unique
+	private BakedModel mutateBakedModel(BakedModel original, BlockRenderView world, BlockPos pos) {
 		BakedModelDuckInterface ducked = (BakedModelDuckInterface) original;
 		if (ducked.env_driven_assets$getEnvJson() != null) {
 			EnvJson envJson = ducked.env_driven_assets$getEnvJson();

@@ -32,12 +32,8 @@ public class EDAUtils {
 
     public static final Logger LOGGER = LoggerFactory.getLogger("env_driven_assets");
 
-	public static boolean worldIsOf(World entry, RegistryKey<World> key) {
-		return EDAUtils.isOf(entry.getRegistryManager().get(RegistryKeys.WORLD).getEntry(entry), key);
-	}
-
-	public static <T> boolean isOf(RegistryEntry<T> entry, RegistryKey<T> key) {
-		return entry.matchesKey(key);
+	public static <T> boolean compareKeys(RegistryKey<T> left, RegistryKey<T> right) {
+		return left.getRegistry() == right.getRegistry() && left.getValue() == right.getValue();
 	}
 
 	public static boolean worldIsIn(World entry, TagKey<World> tag) {
@@ -45,7 +41,7 @@ public class EDAUtils {
 	}
 
 	public static <T> boolean isIn(DynamicRegistryManager manager, RegistryKey<? extends Registry<T>> registry, TagKey<T> tag, RegistryEntry<T> entry) {
-		return manager.get(registry).getEntryList(tag).orElseThrow().contains(entry);
+		return manager.getOptional(registry).map(r -> r.getEntryList(tag).orElseThrow().contains(entry)).orElse(false);
 	}
 
 	public static boolean lookupSubmerged(BlockView world, BlockPos pos, Function<BlockPos, BlockState> stateFinder) {

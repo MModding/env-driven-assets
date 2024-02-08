@@ -49,7 +49,7 @@ public class EnvironmentDrivenAssets implements ClientModInitializer {
 		try {
 			FileWriter writer = new FileWriter(new File(
 				FabricLoader.getInstance().getGameDir().toFile(),
-				new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(Calendar.getInstance()) + ".eda-output.txt")
+				new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance()) + ".eda-output.txt")
 			);
 			MinecraftClient client = MinecraftClient.getInstance();
 			if (client == null) return 0;

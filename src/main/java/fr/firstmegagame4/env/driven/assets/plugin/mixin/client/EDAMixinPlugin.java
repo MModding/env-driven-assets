@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 
 public class EDAMixinPlugin implements IMixinConfigPlugin {
 
@@ -20,7 +21,15 @@ public class EDAMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		return !mixinClassName.equals("fr.firstmegagame4.env.driven.assets.mixin.client.WorldSliceAccessor") || FabricLoader.getInstance().isModLoaded("sodium");
+		if (!FabricLoader.getInstance().isModLoaded("sodium")) {
+			return !mixinClassName.equals("fr.firstmegagame4.env.driven.assets.mixin.client.WorldSliceAccessor");
+		}
+		if (!FabricLoader.getInstance().isModLoaded("axiom")) {
+			BooleanSupplier mapped = () -> mixinClassName.equals("fr.firstmegagame4.env.driven.assets.mixin.client.MappedBlockAndTintGetterMixin");
+			BooleanSupplier chunked = () -> mixinClassName.equals("fr.firstmegagame4.env.driven.assets.mixin.client.ChunkedBlockRegionMixin");
+			return !(mapped.getAsBoolean() || chunked.getAsBoolean());
+		}
+		return true;
 	}
 
 	@Override
