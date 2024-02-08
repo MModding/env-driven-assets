@@ -36,7 +36,7 @@ public class AxiomBlockEnvJsonVisitor {
 
 		@Override
 		public boolean applyDimensionKey(RegistryKey<World> dimensionKey) {
-			return this.fallback.getRegistryKey() == dimensionKey;
+			return EDAUtils.worldIsOf(this.fallback, dimensionKey);
 		}
 
 		@Override
@@ -120,7 +120,7 @@ public class AxiomBlockEnvJsonVisitor {
 
 		@Override
 		public boolean applyDimensionKey(RegistryKey<World> dimensionKey) {
-			return this.fallback.getRegistryKey() == dimensionKey;
+			return EDAUtils.worldIsOf(this.fallback, dimensionKey);
 		}
 
 		@Override

@@ -31,7 +31,7 @@ public class SodiumBlockEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applyDimensionKey(RegistryKey<World> dimensionKey) {
-		return ((WorldSliceAccessor) (Object) this.slice).env_driven_assets$getWorld().getRegistryKey() == dimensionKey;
+		return EDAUtils.worldIsOf(((WorldSliceAccessor) (Object) this.slice).env_driven_assets$getWorld(), dimensionKey);
 	}
 
 	@Override

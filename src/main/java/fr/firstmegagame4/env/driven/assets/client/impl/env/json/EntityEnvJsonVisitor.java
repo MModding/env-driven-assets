@@ -28,7 +28,7 @@ public class EntityEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applyDimensionKey(RegistryKey<World> dimensionKey) {
-		return this.entity.getWorld().getRegistryKey() == dimensionKey;
+		return EDAUtils.worldIsOf(this.entity.getWorld(), dimensionKey);
 	}
 
 	@Override

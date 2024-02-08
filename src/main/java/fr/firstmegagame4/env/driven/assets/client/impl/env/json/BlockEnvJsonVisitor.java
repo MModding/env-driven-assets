@@ -30,7 +30,7 @@ public class BlockEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applyDimensionKey(RegistryKey<World> dimensionKey) {
-		return this.world.getRegistryKey() == dimensionKey;
+		return EDAUtils.worldIsOf(this.world, dimensionKey);
 	}
 
 	@Override

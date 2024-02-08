@@ -32,7 +32,7 @@ public class ClientEnvJsonVisitor implements EnvJsonVisitor {
 
 	@Override
 	public boolean applyDimensionKey(RegistryKey<World> dimensionKey) {
-		return this.player().isPresent() && this.player().get().clientWorld.getRegistryKey() == dimensionKey;
+		return this.player().isPresent() && EDAUtils.worldIsOf(this.player().get().clientWorld, dimensionKey);
 	}
 
 	@Override
