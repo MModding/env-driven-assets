@@ -2,8 +2,6 @@ package fr.firstmegagame4.env.driven.assets.client;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-import fr.firstmegagame4.env.driven.assets.client.injected.ModelManagerContainer;
-import fr.firstmegagame4.env.driven.assets.client.model.ModelManager;
 import fr.firstmegagame4.env.driven.assets.client.model.plugin.EDAModelLoadingPlugin;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
@@ -49,12 +47,11 @@ public class EnvironmentDrivenAssets implements ClientModInitializer {
 		try {
 			FileWriter writer = new FileWriter(new File(
 				FabricLoader.getInstance().getGameDir().toFile(),
-				new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance()) + ".eda-output.txt")
-			);
+				new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()) + ".eda-output.txt"
+			));
 			MinecraftClient client = MinecraftClient.getInstance();
 			if (client == null) return 0;
-			ModelManager manager = ((ModelManagerContainer) client.getBakedModelManager()).getModelManager();
-			manager.settingsCache.forEach(
+			client.getBakedModelManager().getModelManager().settingsCache.forEach(
 				(key, model) -> {
 					try {
 						writer.write(
@@ -70,7 +67,7 @@ public class EnvironmentDrivenAssets implements ClientModInitializer {
 				}
 			);
 			writer.close();
-			source.getSource().sendFeedback(Text.of("eda-output.txt got written"));
+			source.getSource().sendFeedback(Text.of(".eda-output.txt file got written"));
 			return 1;
 		} catch (IOException e) {
 			throw new RuntimeException(e);

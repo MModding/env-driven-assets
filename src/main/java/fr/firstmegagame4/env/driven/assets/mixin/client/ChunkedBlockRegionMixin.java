@@ -4,8 +4,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.moulberry.axiom.render.regions.ChunkedBlockRegion;
 import fr.firstmegagame4.env.driven.assets.client.EDAEnvJsonVisitors;
 import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelDuckInterface;
-import fr.firstmegagame4.env.driven.assets.client.injected.ModelManagerContainer;
-import fr.firstmegagame4.env.driven.assets.client.model.ModelManager;
 import fr.firstmegagame4.env.json.api.EnvJson;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -31,8 +29,7 @@ public class ChunkedBlockRegionMixin {
 			EnvJson envJson = ducked.env_driven_assets$getEnvJson();
 			Identifier identifier = envJson.apply(EDAEnvJsonVisitors.blockVisitor(blockAndTintGetter, new BlockPos(blockPos)));
 			if (identifier != null) {
-				ModelManager manager = ((ModelManagerContainer) MinecraftClient.getInstance().getBakedModelManager()).getModelManager();
-				return manager.changeModelWithoutSettings(identifier);
+				return MinecraftClient.getInstance().getBakedModelManager().getModelManager().changeModelWithoutSettings(identifier);
 			}
 		}
 		return original;

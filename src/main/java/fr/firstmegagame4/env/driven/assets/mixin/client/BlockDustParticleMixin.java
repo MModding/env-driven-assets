@@ -2,7 +2,6 @@ package fr.firstmegagame4.env.driven.assets.mixin.client;
 
 import fr.firstmegagame4.env.driven.assets.client.EDAEnvJsonVisitors;
 import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelDuckInterface;
-import fr.firstmegagame4.env.driven.assets.client.injected.ModelManagerContainer;
 import fr.firstmegagame4.env.driven.assets.client.model.ModelManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -21,7 +20,7 @@ public class BlockDustParticleMixin {
 
 	@Inject(method = "<init>(Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;)V", at = @At("TAIL"))
 	private void setupReference(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, BlockState state, BlockPos blockPos, CallbackInfo ci) {
-		ModelManager manager = ((ModelManagerContainer) MinecraftClient.getInstance().getBakedModelManager()).getModelManager();
+		ModelManager manager = MinecraftClient.getInstance().getBakedModelManager().getModelManager();
 		BakedModel bakedModel = manager.modelFromState(state);
 		if (bakedModel instanceof BakedModelDuckInterface duckedModel && duckedModel.env_driven_assets$getEnvJson() != null) {
 			Identifier identifier = duckedModel.env_driven_assets$getEnvJson().apply(EDAEnvJsonVisitors.blockVisitor(world, BlockPos.ofFloored(x, y, z)));
