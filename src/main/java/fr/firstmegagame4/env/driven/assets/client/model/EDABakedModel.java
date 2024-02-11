@@ -1,8 +1,9 @@
 package fr.firstmegagame4.env.driven.assets.client.model;
 
 import fr.firstmegagame4.env.driven.assets.client.EDAEnvJsonVisitors;
+import fr.firstmegagame4.env.driven.assets.client.blockstate.BlockStateModelProvider;
 import fr.firstmegagame4.env.driven.assets.client.duck.BakedModelDuckInterface;
-import fr.firstmegagame4.env.driven.assets.client.duck.ModelLoaderDuckInterface;
+import fr.firstmegagame4.env.driven.assets.client.injected.ManagerContainer;
 import fr.firstmegagame4.env.json.api.EnvJson;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.WrapperBakedModel;
@@ -22,11 +23,11 @@ import java.util.function.Supplier;
 
 public class EDABakedModel extends ForwardingBakedModel {
 
-	private final ModelManager manager;
+	private final ManagerContainer container;
 	private final ModelBakeSettings settings;
 
 	public EDABakedModel(ModelLoader loader, BakedModel wrapped, ModelBakeSettings settings) {
-		this.manager = ((ModelLoaderDuckInterface) loader).env_driven_assets$getModelManager();
+		this.container = loader;
 		this.wrapped = wrapped;
 		this.settings = settings;
 	}
@@ -43,10 +44,19 @@ public class EDABakedModel extends ForwardingBakedModel {
 
 	@Override
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+		EnvJson envJson = this.container.getBlockStateManager().getStateEnvJson(state);
+		if (envJson != null) {
+			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.blockVisitor(blockView, pos));
+			if (identifier != null) {
+				BlockStateModelProvider provider = this.container.getBlockStateManager().getProvider(identifier);
+				provider.apply(state).emitBlockQuads(blockView, state, pos, randomSupplier, context);
+				return;
+			}
+		}
 		if (this.getEnvJson() != null) {
 			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.blockVisitor(blockView, pos));
 			if (identifier != null) {
-				this.manager.changeModelWithSettings(identifier, this.settings).emitBlockQuads(blockView, state, pos, randomSupplier, context, true);
+				this.container.getModelManager().changeModelWithSettings(identifier, this.settings).emitBlockQuads(blockView, state, pos, randomSupplier, context, true);
 				return;
 			}
 		}
@@ -58,7 +68,7 @@ public class EDABakedModel extends ForwardingBakedModel {
 		if (this.getEnvJson() != null) {
 			Identifier identifier = this.getEnvJson().apply(EDAEnvJsonVisitors.clientVisitor(MinecraftClient.getInstance()));
 			if (identifier != null) {
-				this.manager.changeModelWithSettings(identifier, this.settings).emitItemQuads(stack, randomSupplier, context, true);
+				this.container.getModelManager().changeModelWithSettings(identifier, this.settings).emitItemQuads(stack, randomSupplier, context, true);
 				return;
 			}
 		}

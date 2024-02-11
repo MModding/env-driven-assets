@@ -5,6 +5,7 @@
   "plugin": "fr.firstmegagame4.env.driven.assets.plugin.mixin.client.EDAMixinPlugin",
   "mixins": [
     "client.ChunkedBlockRegionMixin",
+    "client.JsonObjectMixin",
     "client.MappedBlockAndTintGetterMixin",
     "client.WorldSliceAccessor"
   ],
