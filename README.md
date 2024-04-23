@@ -1,8 +1,10 @@
+[![MModding](https://raw.githubusercontent.com/MModding/mmodding.github.io/main/assets/mmodding_dark_banner.png)](https://mmodding.github.io/discord-link)
+
 # Environment Driven Assets
 
-[<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/logo.png?raw=true" width="256" alt="EDA logo">](https://modrinth.com/mod/env-driven-assets)
+[<img src="https://github.com/MModding/env-driven-assets/blob/main/external/promo/logo.png?raw=true" width="256" alt="EDA logo">](https://modrinth.com/mod/env-driven-assets)
 
-[<img src="https://github.com/JR1811/Boatism/blob/520a64b001700efc8667fbf0bd399e5daf5196b3/external/promo/badges/work_in_progress.png?raw=true" width="256" alt="This Mod is Work in Progress!">](https://github.com/FirstMegaGame4/env-driven-assets)
+[<img src="https://github.com/JR1811/Boatism/blob/520a64b001700efc8667fbf0bd399e5daf5196b3/external/promo/badges/work_in_progress.png?raw=true" width="256" alt="This Mod is Work in Progress!">](https://github.com/MModding/env-driven-assets)
 
 ## Supports
 
@@ -13,7 +15,7 @@
 
 [<img src="https://github.com/JR1811/Boatism/blob/5bdbea79b11428101353c4a67ccd4b3821200a76/extrernal/promo/badges/requires_fabric_api.png?raw=true" width="256" alt="Requires Fabric API">](https://modrinth.com/mod/fabric-api)
 
-[<img src="https://github.com/FirstMegaGame4/env.json/blob/main/external/promo/badge.png?raw=true" width="256" alt="Requires env.json">](https://modrinth.com/mod/env.json)
+[<img src="https://github.com/MModding/env.json/blob/main/external/promo/badge.png?raw=true" width="256" alt="Requires env.json">](https://modrinth.com/mod/env.json)
 
 ## Concept
 
@@ -33,15 +35,15 @@ Next features like BlockState redirections or Texture redirections are under dev
 
 ## Usage For Resource Pack Creators
 
-You will have to look at [the env.json wiki](https://github.com/FirstMegaGame4/env.json?tab=readme-ov-file#the-envjson-format).
+You will have to look at [the env.json wiki](https://github.com/MModding/env.json?tab=readme-ov-file#the-envjson-format).
 Note that Environment Driven Assets currently only loads [env.json](https://modrinth.com/mod/env.json) files present under the
 `<namespace>/models/block` asset directory and the `<namespace>/models/item` directory.
 
 ## Badge For Resource Pack Creators
 
-[<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/badge.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)
+[<img src="https://github.com/MModding/env-driven-assets/blob/main/external/promo/badge.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)
 
-`[<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/badge.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)`
+`[<img src="https://github.com/MModding/env-driven-assets/blob/main/external/promo/badge.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)`
 
 ## Environment Driven New Default
 
@@ -50,7 +52,7 @@ features that Resource Pack Creators can use for their Resource Packs.
 
 ### Gallery
 
-<img src="https://github.com/FirstMegaGame4/env-driven-assets/blob/main/external/promo/showcase.png?raw=true" alt="EDND Showcase Image">
+<img src="https://github.com/MModding/env-driven-assets/blob/main/external/promo/showcase.png?raw=true" alt="EDND Showcase Image">
 
 #### EDND Feature Showcase: Few Patches Of Snow Before The True Snowy Grass Block
 

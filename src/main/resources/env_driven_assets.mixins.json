@@ -1,8 +1,8 @@
 {
   "required": true,
-  "package": "fr.firstmegagame4.env.driven.assets.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "plugin": "fr.firstmegagame4.env.driven.assets.plugin.mixin.client.EDAMixinPlugin",
+  "package": "com.mmodding.env.driven.assets.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "com.mmodding.env.driven.assets.plugin.mixin.client.EDAMixinPlugin",
   "mixins": [
     "client.ChunkedBlockRegionMixin",
     "client.JsonObjectMixin",

@@ -5,19 +5,22 @@
 	"name": "Environment Driven Assets",
 	"description": "Environment Driven Assets is a FabricMC mod which implements the env.json library in order to apply it on vanilla asset types.",
 	"authors": [
+		"MModding Team"
+	],
+	"contributors": [
 		"FirstMegaGame4"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/env-driven-assets",
-		"sources": "https://github.com/FirstMegaGame4/env-driven-assets",
-		"issues": "https://github.com/FirstMegaGame4/env-driven-assets/issues"
+		"sources": "https://github.com/MModding/env-driven-assets",
+		"issues": "https://github.com/MModding/env-driven-assets/issues"
 	},
-	"license": "Code: LGPL-3.0\\nAssets: All Rights Reserved",
+	"license": "Code: PolyForm-Shield-1.0.0\\nAssets: All Rights Reserved",
 	"icon": "assets/env_driven_assets/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"fr.firstmegagame4.env.driven.assets.client.EnvironmentDrivenAssets"
+			"com.mmodding.env.driven.assets.client.EnvironmentDrivenAssets"
 		]
 	},
 	"accessWidener": "env_driven_assets.accesswidener",
@@ -26,19 +29,19 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.1",
-		"minecraft": ">=1.20.1 <=1.20.4",
-		"java": ">=17",
+		"minecraft": ">=1.20.5",
+		"java": ">=21",
 		"fabric-api": "*",
-		"env_json": ">=0.3.0-"
+		"env_json": ">=0.4.0-"
 	},
 	"suggests": {
 		"env-driven-data": "*"
 	},
 	"custom": {
 		"loom:injected_interfaces": {
-			"net/minecraft/class_1087": [ "fr/firstmegagame4/env/driven/assets/client/injected/BakedModelRedirection" ],
-			"net/minecraft/class_1088": [ "fr/firstmegagame4/env/driven/assets/client/injected/ManagerContainer" ],
-			"net/minecraft/class_1092": [ "fr/firstmegagame4/env/driven/assets/client/injected/ManagerContainer" ]
+			"net/minecraft/class_1087": [ "com/mmodding/env/driven/assets/client/injected/BakedModelRedirection" ],
+			"net/minecraft/class_1088": [ "com/mmodding/env/driven/assets/client/injected/ManagerContainer" ],
+			"net/minecraft/class_1092": [ "com/mmodding/env/driven/assets/client/injected/ManagerContainer" ]
 		},
 		"modmenu": {
 			"parent": "env_json"
