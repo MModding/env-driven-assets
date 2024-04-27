@@ -7,6 +7,12 @@ Copyright (c) 2024 MModding
 All rights reserved.
 ```
 
+### Are Considered As Assets:
+```
+- All Files in the ./src/main/resources/assets Directory
+- All Files in the ./external Directory
+```
+
 ### License for Code:
 
 # PolyForm Shield License 1.0.0
