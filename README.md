@@ -1,4 +1,4 @@
-[![MModding](https://raw.githubusercontent.com/MModding/mmodding.github.io/main/assets/mmodding_dark_banner.png)](https://mmodding.github.io/discord-link)
+[![MModding](https://raw.githubusercontent.com/MModding/art/main/brand/mmodding_dark_banner.png)](https://mmodding.github.io/discord-link)
 
 # Environment Driven Assets
 
