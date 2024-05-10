@@ -41,15 +41,14 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
 	// env.json
-    modImplementation "com.github.MModding:env.json:${project.env_json_version}"
+    modImplementation "com.mmodding:env.json:${project.env_json_version}"
 
 	// sodium-fabric, needed for compatibility
 	modImplementation "maven.modrinth:sodium:${project.sodium_version}"
 
 	// Axiom is an All Rights Reserved project which is under its own eula (https://axiom.moulberry.com/eula)
 	// I received an explicit permission from Moulberry (current Axiom maintainer) to access and use Axiom's code by Modrinth Maven for that project
-	// as long I'm using it to create and keep compatibility
-
+	// as long I'm using it to create and keep compatibility - still not working currently => will take more time before being done
 	modImplementation "maven.modrinth:axiom:${project.axiom_version}"
 	modCompileOnly "com.github.moulberry:AxiomClientAPI:1.0.5.3"
 
