@@ -1,5 +1,8 @@
+import com.mmodding.gradle.api.EnvironmentTarget
+
 plugins {
 	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'com.mmodding.gradle' version '0.0.8'
 	id 'maven-publish'
 }
 
@@ -49,15 +52,51 @@ dependencies {
 	// Axiom is an All Rights Reserved project which is under its own eula (https://axiom.moulberry.com/eula)
 	// I received an explicit permission from Moulberry (current Axiom maintainer) to access and use Axiom's code by Modrinth Maven for that project
 	// as long I'm using it to create and keep compatibility - still not working currently => will take more time before being done
-	modImplementation "maven.modrinth:axiom:${project.axiom_version}"
+	modCompileOnly "maven.modrinth:axiom:${project.axiom_version}"
 	modCompileOnly "com.github.moulberry:AxiomClientAPI:1.0.5.3"
-
-	// noindium, needed for weirdos that doesn't know what "compatibility" means => temporarily disabled
-	// include "me.luligabi:NoIndium:${project.noindium_version}"
 }
 
 loom {
 	accessWidenerPath = file("src/main/resources/env_driven_assets.accesswidener")
+}
+
+mmodding {
+	configureFabricModJson {
+		namespace = "env_driven_assets"
+		name = "Environment Driven Assets"
+		description = "Environment Driven Assets is a FabricMC mod which implements the env.json library in order to apply it on vanilla asset types."
+		addAuthor("MModding Team")
+		addContributor("FirstMegaGame4")
+		withContact {
+			it.homepage = "https://modrinth.com/mod/env-driven-assets"
+			it.sources = "https://github.com/MModding/env-driven-assets"
+			it.issues = "https://github.com/MModding/env-driven-assets/issues"
+		}
+		license = "Code: PolyForm-Shield-1.0.0\\nAssets: All Rights Reserved"
+		icon = "assets/env_driven_assets/icon.png"
+		environment = EnvironmentTarget.ANY
+		withEntrypoints {
+			it.client("com.mmodding.env.driven.assets.client.EnvironmentDrivenAssets")
+		}
+		accessWidener = "env_driven_assets.accesswidener"
+		addMixin("env_driven_assets.mixins.json")
+		withDependencies {
+			it.fabricLoaderVersion = ">=" + project.loader_version
+			it.minecraftVersion = ">=" + project.minecraft_version
+			it.javaVersion = ">=" + 21
+			it.fabricApiVersion = "*"
+			it.addDependency("env_json", ">=" + project.env_json_version + "-")
+		}
+		withSuggestions {
+			it.addDependency("env_driven_data", "*")
+		}
+		withInjectedInterfaces {
+			it.injectTo("net/minecraft/class_1087", "com/mmodding/env/driven/assets/client/injected/BakedModelRedirection")
+			it.injectTo("net/minecraft/class_1088", "com/mmodding/env/driven/assets/client/injected/ManagerContainer")
+			it.injectTo("net/minecraft/class_1092", "com/mmodding/env/driven/assets/client/injected/ManagerContainer")
+		}
+		withParent("env_json")
+	}
 }
 
 processResources {

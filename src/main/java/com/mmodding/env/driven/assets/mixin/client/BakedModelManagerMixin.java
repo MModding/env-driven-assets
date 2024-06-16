@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mmodding.env.driven.assets.client.model.plugin.EDAModelLoadingPlugin;
 import com.mojang.datafixers.util.Pair;
 import com.mmodding.env.driven.assets.client.EDAUtils;
 import com.mmodding.env.driven.assets.client.blockstate.BlockStateManager;
@@ -42,6 +43,7 @@ public class BakedModelManagerMixin implements ManagerContainer {
 			if (resource.getEnvJson() != null) {
 				EDAUtils.LOGGER.info("env.json file detected for model {}", entry.getKey());
 				((JsonUnbakedModelDuckInterface) second).env_driven_assets$setEnvJson(resource.getEnvJson());
+				EDAModelLoadingPlugin.MODELS.add(resource.getEnvJson());
 			}
 		}
 		catch (Exception exception) {

@@ -26,7 +26,7 @@ public class EnvironmentDrivenAssets implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		EDAUtils.LOGGER.info("Loading Environment Driven Assets");
+		EDAUtils.LOGGER.info("Loading Environment Driven Assets...");
 		ModelLoadingPlugin.register(new EDAModelLoadingPlugin());
 		FabricLoader.getInstance().getModContainer("env_driven_assets").map(
 			container -> ResourceManagerHelper.registerBuiltinResourcePack(
@@ -37,6 +37,16 @@ public class EnvironmentDrivenAssets implements ClientModInitializer {
 			)
 		);
 		ClientCommandRegistrationCallback.EVENT.register(EnvironmentDrivenAssets::registerBakingOutputProducerCommand);
+		if (FabricLoader.getInstance().isModLoaded("sodium") && !FabricLoader.getInstance().isModLoaded("indium")) {
+			EDAUtils.LOGGER.error(
+				"Environment Driven Assets detected Sodium Optimization Mod without Indium Presence!"
+				+ " Environment Driven Assets cannot work in this state!"
+				+ " You can download Indium at https://modrinth.com/mod/indium."
+			);
+		}
+		else {
+			EDAUtils.LOGGER.info("Environment Driven Assets is ready!");
+		}
 	}
 
 	private static void registerBakingOutputProducerCommand(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandRegistryAccess registries) {

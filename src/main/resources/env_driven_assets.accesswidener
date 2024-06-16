@@ -3,3 +3,6 @@ accessWidener v1 named
 accessible class net/minecraft/client/render/model/BakedModelManager$BakingResult
 accessible class net/minecraft/client/render/model/ModelLoader$BakedModelCacheKey
 accessible class net/minecraft/client/render/model/ModelLoader$BakerImpl
+
+accessible method net/minecraft/client/render/model/ModelLoader getOrLoadModel (Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/model/UnbakedModel;
+accessible method net/minecraft/util/Identifier <init> (Ljava/lang/String;Ljava/lang/String;)V
