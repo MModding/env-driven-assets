@@ -11,7 +11,7 @@ import com.mmodding.env.driven.assets.client.impl.env.json.EmptyVisitor;
 import com.mmodding.env.driven.assets.client.impl.sodium.SodiumBlockEnvJsonVisitor;
 import com.mmodding.env.driven.assets.mixin.client.ChunkRendererRegionAccessor;
 import com.mmodding.env.json.api.EnvJsonVisitor;
-import me.jellysquid.mods.sodium.client.world.WorldSlice;
+import net.caffeinemc.mods.sodium.client.world.LevelSlice;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.chunk.ChunkRendererRegion;
@@ -30,7 +30,7 @@ public class EDAEnvJsonVisitors {
 			return new BlockEnvJsonVisitor(world, pos);
 		}
 		else if (FabricLoader.getInstance().isModLoaded("sodium")) {
-			if (view instanceof WorldSlice slice) {
+			if (view instanceof LevelSlice slice) {
 				return new SodiumBlockEnvJsonVisitor(slice, pos);
 			}
 		}

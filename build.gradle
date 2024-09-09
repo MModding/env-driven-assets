@@ -1,8 +1,8 @@
 import com.mmodding.gradle.api.EnvironmentTarget
 
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
-	id 'com.mmodding.gradle' version '0.0.8'
+	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'com.mmodding.gradle' version '0.0.9'
 	id 'maven-publish'
 }
 

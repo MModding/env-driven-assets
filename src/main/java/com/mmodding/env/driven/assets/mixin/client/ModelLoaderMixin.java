@@ -38,7 +38,7 @@ public abstract class ModelLoaderMixin implements ManagerContainer {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void computeStatesIntoManager(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> jsonUnbakedModels, Map<Identifier, List<BlockStatesLoader.SourceTrackedData>> blockStates, CallbackInfo ci) {
-		Registries.BLOCK.streamEntries().forEach(ref -> {
+		/* Registries.BLOCK.streamEntries().forEach(ref -> {
 			Identifier stateId = BlockStatesLoader.FINDER.toResourcePath(ref.registryKey().getValue());
 			blockStates.get(stateId).forEach(source -> {
 				JsonObjectDuckInterface ducked = (JsonObjectDuckInterface) source.data();
@@ -46,7 +46,7 @@ public abstract class ModelLoaderMixin implements ManagerContainer {
 					this.blockStateManager.appendBlock(ref.value(), ducked.env_driven_assets$getEnvJson());
 				}
 			});
-		});
+		}); */
 	}
 
 	@Override

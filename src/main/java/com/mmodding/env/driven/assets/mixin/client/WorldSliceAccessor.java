@@ -1,13 +1,13 @@
 package com.mmodding.env.driven.assets.mixin.client;
 
-import me.jellysquid.mods.sodium.client.world.WorldSlice;
+import net.caffeinemc.mods.sodium.client.world.LevelSlice;
 import net.minecraft.client.world.ClientWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(WorldSlice.class)
+@Mixin(LevelSlice.class)
 public interface WorldSliceAccessor {
 
-	@Accessor("world")
+	@Accessor("level")
 	ClientWorld env_driven_assets$getWorld();
 }

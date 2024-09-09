@@ -8,7 +8,7 @@ import com.mmodding.env.json.api.rule.SkyEnvJsonRule;
 import com.mmodding.env.json.api.rule.VoidEnvJsonRule;
 import com.mmodding.env.json.api.rule.WaterEnvJsonRule;
 import it.unimi.dsi.fastutil.ints.Int2BooleanFunction;
-import me.jellysquid.mods.sodium.client.world.WorldSlice;
+import net.caffeinemc.mods.sodium.client.world.LevelSlice;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
@@ -21,10 +21,10 @@ import net.minecraft.world.biome.Biome;
 @SuppressWarnings("resource")
 public class SodiumBlockEnvJsonVisitor implements EnvJsonVisitor {
 
-	private final WorldSlice slice;
+	private final LevelSlice slice;
 	private final BlockPos pos;
 
-	public SodiumBlockEnvJsonVisitor(WorldSlice slice, BlockPos pos) {
+	public SodiumBlockEnvJsonVisitor(LevelSlice slice, BlockPos pos) {
 		this.slice = slice;
 		this.pos = pos;
 	}
