@@ -2,7 +2,7 @@
 
 # Environment Driven Assets
 
-[<img src="https://github.com/MModding/env-driven-assets/blob/main/external/promo/logo.png?raw=true" width="256" alt="EDA logo">](https://modrinth.com/mod/env-driven-assets)
+[<img src="https://github.com/MModding/art/blob/main/mods/env_driven_assets/logo_named.png?raw=true" width="256" alt="EDA logo">](https://modrinth.com/mod/env-driven-assets)
 
 [<img src="https://github.com/JR1811/Boatism/blob/520a64b001700efc8667fbf0bd399e5daf5196b3/external/promo/badges/work_in_progress.png?raw=true" width="256" alt="This Mod is Work in Progress!">](https://github.com/MModding/env-driven-assets)
 
@@ -15,7 +15,7 @@
 
 [<img src="https://github.com/JR1811/Boatism/blob/5bdbea79b11428101353c4a67ccd4b3821200a76/extrernal/promo/badges/requires_fabric_api.png?raw=true" width="256" alt="Requires Fabric API">](https://modrinth.com/mod/fabric-api)
 
-[<img src="https://github.com/MModding/env.json/blob/main/external/promo/badge.png?raw=true" width="256" alt="Requires env.json">](https://modrinth.com/mod/env.json)
+[<img src="https://github.com/MModding/art/blob/main/mods/env_json/requires_env_json.png?raw=true" width="256" alt="Requires env.json">](https://modrinth.com/mod/env.json)
 
 ## Concept
 
@@ -41,9 +41,9 @@ Note that Environment Driven Assets currently only loads [env.json](https://modr
 
 ## Badge For Resource Pack Creators
 
-[<img src="https://github.com/MModding/env-driven-assets/blob/main/external/promo/badge.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)
+[<img src="https://github.com/MModding/art/blob/main/mods/env_driven_assets/recommends_eda.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)
 
-`[<img src="https://github.com/MModding/env-driven-assets/blob/main/external/promo/badge.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)`
+`[<img src="https://github.com/MModding/art/blob/main/mods/env_driven_assets/recommends_eda.png?raw=true" width="256" alt="Recommands Environment Driven Assets">](https://modrinth.com/mod/env-driven-assets)`
 
 ## Environment Driven New Default
 
